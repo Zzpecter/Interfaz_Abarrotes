@@ -6,7 +6,7 @@ namespace UI
     {
         private DataTable dtDatos;
         private String formState = "init";
-        private DataLayer.Models.ViMotivo motivoSeleccionado;
+        private DataLayer.Models.ViCliente motivoSeleccionado;
         private bool loading;
 
         public Form1()
@@ -18,12 +18,12 @@ namespace UI
         {
             
             await DataLayer.Tasks.Authentication.BuildAuthHeaders();
-            List<DataLayer.Models.ViMotivo> motivos =  await DataLayer.Tasks.Motivo.listar();
+            List<DataLayer.Models.ViCliente> motivos =  await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
             dgvDatos.Rows[0].Selected = true;
         }
 
-        private void CreateDataSource(List<DataLayer.Models.ViMotivo> motivos)
+        private void CreateDataSource(List<DataLayer.Models.ViCliente> motivos)
         {
             dtDatos = new DataTable();
             dtDatos.Clear();
@@ -55,7 +55,7 @@ namespace UI
 
         private async void RefreshData()
         {
-            List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
+            List<DataLayer.Models.ViCliente> motivos = await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
         }
 
@@ -133,7 +133,7 @@ namespace UI
                 case "agregar":
                     if (tbDescripcionMotivo.Text != String.Empty)
                     {
-                        DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo() { descripcion_motivo = tbDescripcionMotivo.Text, usuario_registro = "dev" };
+                        DataLayer.Models.Cliente motivo = new DataLayer.Models.Cliente() { descripcion_motivo = tbDescripcionMotivo.Text, usuario_registro = "dev" };
                         int statusCode = await DataLayer.Tasks.Motivo.insertar(motivo);
 
                         if (statusCode == 201)
@@ -149,7 +149,7 @@ namespace UI
                 case "actualizar":
                     if (tbDescripcionMotivo.Text != String.Empty)
                     {
-                        DataLayer.Models.Motivo _motivo = new DataLayer.Models.Motivo();
+                        DataLayer.Models.Cliente _motivo = new DataLayer.Models.Cliente();
 
                         _motivo.descripcion_motivo = tbDescripcionMotivo.Text;
                         _motivo.usuario_registro = "dev"; //esto vamos a sacar de los globales, donde registraremos el usuario activo
