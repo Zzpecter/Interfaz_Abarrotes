@@ -2,37 +2,37 @@
 
 namespace DataLayer.Tasks
 {
-    public class Motivo
+    public class Usuario
     {
-        public static async Task<List<Models.ViMotivo>> listar()
+        public static async Task<List<Models.ViUsuario>> listar()
         {
             var response = await RequestController.SendHttpRequest(
-                HttpMethod.Get, 
-                Globals.URL_MOTIVOS, 
-                String.Empty, 
+                HttpMethod.Get,
+                Globals.URL_USUARIO,
+                String.Empty,
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            List<Models.ViMotivo> motivos = JsonConvert.DeserializeObject<List<Models.ViMotivo>>(responseText);
-            return motivos;
+            List<Models.ViUsuario> usuarios = JsonConvert.DeserializeObject<List<Models.ViUsuario>>(responseText);
+            return usuarios;
         }
 
-        public static async Task<int> insertar(Models.Motivo motivo)
+        public static async Task<int> insertar(Models.Usuario usuario)
         {
-            string jsonBody = JsonConvert.SerializeObject(motivo);
+            string jsonBody = JsonConvert.SerializeObject(usuario);
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Post,
-                Globals.URL_MOTIVOS,
+                Globals.URL_USUARIO,
                 jsonBody,
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
 
-        public static async Task<int> actualizar(Models.Motivo motivo, int idMotivo)
+        public static async Task<int> actualizar(Models.Usuario usuario, int idUsuario)
         {
-            string jsonBody = JsonConvert.SerializeObject(motivo);
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string jsonBody = JsonConvert.SerializeObject(usuario);
+            string url = Globals.URL_USUARIO + "/" + idUsuario.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Put,
@@ -42,9 +42,9 @@ namespace DataLayer.Tasks
             return ((int)response.StatusCode);
         }
 
-        public static async Task<Models.ViMotivo> seleccionar(int idMotivo)
+        public static async Task<Models.ViUsuario> seleccionar(int idUsuario)
         {
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string url = Globals.URL_USUARIO + "/" + idUsuario.ToString();
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Get,
                 url,
@@ -52,12 +52,12 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Models.ViMotivo>(responseText);
+            return JsonConvert.DeserializeObject<Models.ViUsuario>(responseText);
         }
 
-        public static async Task<int> eliminar(int idMotivo)
+        public static async Task<int> eliminar(int idUsuario)
         {
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string url = Globals.URL_USUARIO + "/" + idUsuario.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Delete,
