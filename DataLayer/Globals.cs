@@ -13,6 +13,7 @@ namespace DataLayer
         public static string URL_CLIENTES = "http://192.168.1.3:5000/api/v1/clientes";
         public static string URL_NIVELES = "http://192.168.1.3:5000/api/v1/niveles";
         public static string URL_USUARIO = "http://192.168.1.3:5000/api/v1/users";
+        public static string URL_USUARIO_NIVEL = "http://192.168.1.3:5000/api/v1/usuario-nivel"; 
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
