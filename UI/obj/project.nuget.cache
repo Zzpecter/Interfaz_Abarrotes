@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "MJX/LqbLPsqel+Mks2cWKvWL4gb298w/EouL5swh0cgDdPu1J/+G5J46KQrOdeH42ye9tO5u59FK2YlFP0QnjQ==",
+  "dgSpecHash": "WMhRlfBEn/FUUdq8ylLqJVaz/HEXS8pVCpnnP0zORTChVNfroPzBDqaEbTZRmLsNazoFm0SXL7roNaYen4zHew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\renev\\Documents\\VS Projects\\ApiConnectionTest\\ApiConnectTest\\UI\\UI.csproj",
+  "projectFilePath": "C:\\Users\\Usuario\\Documents\\Proyecto abarrotes\\Interfaz_Abarrotes\\UI\\UI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\renev\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\Usuario\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
   "logs": []
 }

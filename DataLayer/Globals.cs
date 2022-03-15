@@ -8,11 +8,11 @@ namespace DataLayer
 {
     public static class Globals
     {
-        public static string URL_AUTH = "http://192.168.1.3:5000/auth/login";
-        public static string URL_MOTIVOS = "http://192.168.1.3:5000/api/v1/motivos";
-        public static string URL_CLIENTES = "http://192.168.1.3:5000/api/v1/clientes";
-        public static string URL_NIVELES = "http://192.168.1.3:5000/api/v1/niveles";
-        public static string URL_USUARIO = "http://192.168.1.3:5000/api/v1/users";
+        public static string URL_AUTH = "http://192.168.100.14:5000/auth/login";
+        public static string URL_MOTIVOS = "http://192.168.100.14:5000/api/v1/motivos";
+        public static string URL_CLIENTES = "http://192.168.100.14:5000/api/v1/clientes";
+        public static string URL_NIVELES = "http://192.168.100.14:5000/api/v1/niveles";
+        public static string URL_USUARIO = "http://192.168.100.14:5000/api/v1/users";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
