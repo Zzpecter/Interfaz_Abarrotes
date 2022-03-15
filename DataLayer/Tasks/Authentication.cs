@@ -15,7 +15,7 @@ namespace DataLayer.Tasks
         }
         public static async Task authenticateUser()
         {
-            string loginUrl = "http://192.168.1.3:5000/auth/login";
+            string loginUrl = "http://192.168.74.99:5000/auth/login";
             LoginUser loginUser = new LoginUser() { login_usuario = "admin", password_usuario = "admin" };
             string jsonUser = JsonConvert.SerializeObject(loginUser);
             var loginResponse = await RequestController.SendHttpRequest(HttpMethod.Post, loginUrl, jsonUser, new Dictionary<string, string>());
