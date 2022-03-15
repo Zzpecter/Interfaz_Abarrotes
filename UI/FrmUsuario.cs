@@ -26,6 +26,8 @@ namespace UI
 
         private async void FrmUsuario_Load(object sender, EventArgs e)
         {
+            DataLayer.Tasks.Config cfg = new DataLayer.Tasks.Config();
+            cfg.readURL(); //Estas 2 lineas igual se generan en el login
             await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViUsuarioNivel> usuarios = await DataLayer.Tasks.Usuario.listarUsuarioNivel();
             CreateDataSource(usuarios);
@@ -69,7 +71,6 @@ namespace UI
                 bEditarContactos.Enabled = true;
                 tbLogin.Text = usuarioSeleccionado.login_usuario;
                 tbPassword.Text = "********";
-
             }
 
         }
