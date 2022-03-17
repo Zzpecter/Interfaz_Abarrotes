@@ -17,4 +17,10 @@ namespace DataLayer.Models
     {
         public string usuario_registro { get; set; }
     }
+
+    public class ViContactoUnified
+    {
+        public int id_contacto { get; set; }
+        public string contacto { get; set; }
+    }
 }
