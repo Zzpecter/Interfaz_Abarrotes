@@ -2,37 +2,37 @@
 
 namespace DataLayer.Tasks
 {
-    public class Motivo
+    public class ContactoCorreo
     {
-        public static async Task<List<Models.ViMotivo>> listar()
+        public static async Task<List<Models.ViContactoCorreo>> listar()
         {
             var response = await RequestController.SendHttpRequest(
-                HttpMethod.Get, 
-                Globals.URL_MOTIVOS, 
-                String.Empty, 
+                HttpMethod.Get,
+                Globals.URL_CONTACTO_CORREO,
+                String.Empty,
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            List<Models.ViMotivo> motivos = JsonConvert.DeserializeObject<List<Models.ViMotivo>>(responseText);
-            return motivos;
+            List<Models.ViContactoCorreo> contactoCorreo = JsonConvert.DeserializeObject<List<Models.ViContactoCorreo>>(responseText);
+            return contactoCorreo;
         }
 
-        public static async Task<int> insertar(Models.Motivo motivo)
+        public static async Task<int> insertar(Models.ContactoCorreo contactoCorreo)
         {
-            string jsonBody = JsonConvert.SerializeObject(motivo);
+            string jsonBody = JsonConvert.SerializeObject(contactoCorreo);
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Post,
-                Globals.URL_MOTIVOS,
+                Globals.URL_CONTACTO_CORREO,
                 jsonBody,
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
 
-        public static async Task<int> actualizar(Models.Motivo motivo, int idMotivo)
+        public static async Task<int> actualizar(Models.ContactoCorreo contactoCorreo, int idContactoCorreo)
         {
-            string jsonBody = JsonConvert.SerializeObject(motivo);
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string jsonBody = JsonConvert.SerializeObject(contactoCorreo);
+            string url = Globals.URL_CONTACTO_CORREO + "/" + idContactoCorreo.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Put,
@@ -42,9 +42,9 @@ namespace DataLayer.Tasks
             return ((int)response.StatusCode);
         }
 
-        public static async Task<Models.ViMotivo> seleccionar(int idMotivo)
+        public static async Task<Models.ViContactoCorreo> seleccionar(int idContactoCorreo)
         {
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string url = Globals.URL_CONTACTO_CORREO + "/" + idContactoCorreo.ToString();
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Get,
                 url,
@@ -52,12 +52,12 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Models.ViMotivo>(responseText);
+            return JsonConvert.DeserializeObject<Models.ViContactoCorreo>(responseText);
         }
 
-        public static async Task<int> eliminar(int idMotivo)
+        public static async Task<int> eliminar(int idContactoCorreo)
         {
-            string url = Globals.URL_MOTIVOS + "/" + idMotivo.ToString();
+            string url = Globals.URL_CONTACTO_CORREO + "/" + idContactoCorreo.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Delete,
