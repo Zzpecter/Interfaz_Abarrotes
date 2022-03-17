@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace DataLayer
 {
+    public enum PasswordScore
+    {
+        Blank = 0,
+        TooShort = 1,
+        VeryWeak = 2,
+        Weak = 3,
+        Medium = 4,
+        Strong = 5,
+        VeryStrong = 6
+    }
+
+
     public static class Helpers
     {
         public static Dictionary<string, object> DictionaryFromInstance(object atype)
@@ -22,5 +30,31 @@ namespace DataLayer
             }
             return dict;
         }
+
+        public static PasswordScore CheckStrength(string password)
+        {
+            int score = 0;
+
+            if (password.Length < 1)
+                return PasswordScore.Blank;
+            if (password.Length < 4)
+                return PasswordScore.TooShort;
+
+            if (password.Length >= 6)
+                score++;
+            if (password.Length >= 8)
+                score++;
+            if (Regex.Match(password, @"\d+", RegexOptions.ECMAScript).Success)
+                score++;
+            if (Regex.Match(password, @"[a-z]", RegexOptions.ECMAScript).Success &&
+              Regex.Match(password, @"[A-Z]", RegexOptions.ECMAScript).Success)
+                score++;
+            if (Regex.Match(password, @".[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]", RegexOptions.ECMAScript).Success)
+                score++;
+
+            return (PasswordScore)score;
+        }
     }
+
+    
 }
