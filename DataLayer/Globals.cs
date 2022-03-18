@@ -22,6 +22,7 @@ namespace DataLayer
         public static string URL_CONTACTO_DIRECCION = "http://" + API_URL + "contactos_direccion";
         public static string URL_CONTACTOS_UNIFIED = "http://" + API_URL + "contactos_unified";
         public static string URL_ENTIDADES = "http://" + API_URL + "entidades";
+        public static string URL_PROVEEDORES = "http://" + API_URL + "proveedores";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
