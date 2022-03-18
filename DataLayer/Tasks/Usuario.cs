@@ -16,6 +16,18 @@ namespace DataLayer.Tasks
             List<Models.ViUsuario> usuarios = JsonConvert.DeserializeObject<List<Models.ViUsuario>>(responseText);
             return usuarios;
         }
+        public static async Task<List<Models.ViUsuarioNivel>> listarUsuarioNivel()
+        {
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                Globals.URL_USUARIO_NIVEL,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            List<Models.ViUsuarioNivel> usuarios = JsonConvert.DeserializeObject<List<Models.ViUsuarioNivel>>(responseText);
+            return usuarios;
+        }
 
         public static async Task<int> insertar(Models.Usuario usuario)
         {

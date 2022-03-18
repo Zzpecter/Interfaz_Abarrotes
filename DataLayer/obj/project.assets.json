@@ -48,19 +48,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario\\.nuget\\packages\\": {}
+    "C:\\Users\\renev\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Documents\\Proyecto abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
+      "projectUniqueName": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
       "projectName": "DataLayer",
-      "projectPath": "C:\\Users\\Usuario\\Documents\\Proyecto abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
-      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Documents\\Proyecto abarrotes\\Interfaz_Abarrotes\\DataLayer\\obj\\",
+      "projectPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
+      "packagesPath": "C:\\Users\\renev\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\renev\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

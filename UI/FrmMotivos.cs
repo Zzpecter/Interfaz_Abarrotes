@@ -2,110 +2,34 @@ using System.Data;
 
 namespace UI
 {
-    public partial class FrmMotivos : Form
+    public partial class Form1 : Form
     {
+        #region Inicializacion y Variables
         private DataTable dtDatos;
         private String formState = "init";
         private DataLayer.Models.ViMotivo motivoSeleccionado;
         private bool loading;
 
-        public FrmMotivos()
+        public Form1()
         {
             InitializeComponent();
         }
 
-        private async void FrmMotivos_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            
             await DataLayer.Tasks.Authentication.BuildAuthHeaders();
             List<DataLayer.Models.ViMotivo> motivos =  await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
             dgvDatos.Rows[0].Selected = true;
         }
 
-        private void CreateDataSource(List<DataLayer.Models.ViMotivo> motivos)
-        {
-            dtDatos = new DataTable();
-            dtDatos.Clear();
+        #endregion
 
-            //metodo de ayuda para convertir las propiedades de una instancia en un dict.
-            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(motivos[0]);
-
-            //Agregamos columnas segun los atributos del objeto 
-            foreach ( var item in propertyDict )
-                dtDatos.Columns.Add(item.Key);
-            //Agregamos filas
-            for(int i = 0; i < motivos.Count; i++)
-            {
-                propertyDict = DataLayer.Helpers.DictionaryFromInstance(motivos[i]);
-                DataRow _tempRow = dtDatos.NewRow();
-                foreach (var item in propertyDict)
-                    _tempRow[item.Key] = item.Value;
-                dtDatos.Rows.Add(_tempRow);
-            }
-            loading = true;
-            dgvDatos.DataSource = dtDatos;
-            dgvDatos.Refresh();
-            dgvDatos.ClearSelection();
-            dgvDatos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvDatos.Columns[0].HeaderText = "ID";
-            dgvDatos.Columns[1].HeaderText = "Descripción Motivo";
-            loading = false;
-        }
-
-        private async void RefreshData()
-        {
-            List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
-            CreateDataSource(motivos);
-        }
-
+        #region Botones y Controles
         private void bAgregar_Click(object sender, EventArgs e)
         {
             formState = "agregar";
             ChangeState();
-        }
-
-        private void ChangeState()
-        {
-            switch (formState)
-            {
-                case "init":
-                    tbDescripcionMotivo.Enabled = false;
-
-                    bGuardar.Visible = false;
-                    bCancelar.Visible = false;
-                    bAgregar.Enabled = true;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvDatos.ReadOnly = false;
-                    break;
-                case "agregar":
-                    tbDescripcionMotivo.Enabled = true;
-                    tbDescripcionMotivo.Text = String.Empty;
-
-                    bGuardar.Visible = true;
-                    bCancelar.Visible = true;
-                    bAgregar.Enabled = false;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvDatos.ClearSelection();
-                    dgvDatos.ReadOnly = true;
-                    break;
-                case "actualizar":
-                    tbDescripcionMotivo.Enabled = true;
-
-                    bGuardar.Visible = true;
-                    bCancelar.Visible = true;
-                    bAgregar.Enabled = false;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvDatos.ReadOnly = true;
-                    break;
-
-            }
         }
 
         private void bActualizar_Click(object sender, EventArgs e)
@@ -188,5 +112,88 @@ namespace UI
             formState = "init";
             ChangeState();
         }
+        #endregion
+
+        #region Métodos de Apoyo
+        private void ChangeState()
+        {
+            switch (formState)
+            {
+                case "init":
+                    tbDescripcionMotivo.Enabled = false;
+
+                    bGuardar.Visible = false;
+                    bCancelar.Visible = false;
+                    bAgregar.Enabled = true;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvDatos.ReadOnly = false;
+                    dgvDatos.ClearSelection();
+                    break;
+                case "agregar":
+                    tbDescripcionMotivo.Enabled = true;
+                    tbDescripcionMotivo.Text = String.Empty;
+
+                    bGuardar.Visible = true;
+                    bCancelar.Visible = true;
+                    bAgregar.Enabled = false;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvDatos.ClearSelection();
+                    dgvDatos.ReadOnly = true;
+                    break;
+                case "actualizar":
+                    tbDescripcionMotivo.Enabled = true;
+
+                    bGuardar.Visible = true;
+                    bCancelar.Visible = true;
+                    bAgregar.Enabled = false;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvDatos.ReadOnly = true;
+                    break;
+
+            }
+        }
+
+        private void CreateDataSource(List<DataLayer.Models.ViMotivo> motivos)
+        {
+            dtDatos = new DataTable();
+            dtDatos.Clear();
+
+            //metodo de ayuda para convertir las propiedades de una instancia en un dict.
+            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(motivos[0]);
+
+            //Agregamos columnas segun los atributos del objeto 
+            foreach (var item in propertyDict)
+                dtDatos.Columns.Add(item.Key);
+            //Agregamos filas
+            for (int i = 0; i < motivos.Count; i++)
+            {
+                propertyDict = DataLayer.Helpers.DictionaryFromInstance(motivos[i]);
+                DataRow _tempRow = dtDatos.NewRow();
+                foreach (var item in propertyDict)
+                    _tempRow[item.Key] = item.Value;
+                dtDatos.Rows.Add(_tempRow);
+            }
+            loading = true;
+            dgvDatos.DataSource = dtDatos;
+            dgvDatos.Refresh();
+            dgvDatos.ClearSelection();
+            dgvDatos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvDatos.Columns[0].HeaderText = "ID";
+            dgvDatos.Columns[1].HeaderText = "Descripción Motivo";
+            loading = false;
+        }
+
+        private async void RefreshData()
+        {
+            List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
+            CreateDataSource(motivos);
+        }
+        #endregion
     }
 }

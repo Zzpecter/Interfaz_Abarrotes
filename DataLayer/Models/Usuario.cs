@@ -13,4 +13,8 @@
     {
         public string usuario_registro { get; set; }
     }
+    public class ViUsuarioNivel : ViUsuario
+    {
+        public string nivel { get; set; }
+    }
 }
