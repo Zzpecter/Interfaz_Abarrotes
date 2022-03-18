@@ -1,8 +1,16 @@
+ï»¿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Form1 : Form
+    public partial class FrmMotivos : Form
     {
         #region Inicializacion y Variables
         private DataTable dtDatos;
@@ -10,19 +18,17 @@ namespace UI
         private DataLayer.Models.ViMotivo motivoSeleccionado;
         private bool loading;
 
-        public Form1()
+        public FrmMotivos()
         {
             InitializeComponent();
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        private async void FrmMotivos_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders();
-            List<DataLayer.Models.ViMotivo> motivos =  await DataLayer.Tasks.Motivo.listar();
+            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se harÃ¡ en el login, cuando exista.
+            List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
-            dgvDatos.Rows[0].Selected = true;
         }
-
         #endregion
 
         #region Botones y Controles
@@ -40,9 +46,11 @@ namespace UI
 
         private async void bElimiar_Click(object sender, EventArgs e)
         {
-            if (dgvDatos.SelectedRows.Count == 1)
+            if (dgvMotivos.SelectedRows.Count == 1)
             {
+                // TODO: Eliminar Entidad->Contacto->usuario
                 int statusCode = await DataLayer.Tasks.Motivo.eliminar(motivoSeleccionado.id_motivo);
+
                 if (statusCode == 200)
                     RefreshData();
                 formState = "init";
@@ -52,12 +60,19 @@ namespace UI
 
         private async void bGuardar_Click(object sender, EventArgs e)
         {
+            bool cumpleCondiciones;
+            DataLayer.PasswordScore passScore;
             switch (formState)
             {
                 case "agregar":
-                    if (tbDescripcionMotivo.Text != String.Empty)
+                    if (tbMotivo.Text != String.Empty)
                     {
-                        DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo() { descripcion_motivo = tbDescripcionMotivo.Text, usuario_registro = "dev" };
+                        //Crear e insertar el motivo
+                        DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo()
+                        {
+                            descripcion_motivo = tbMotivo.Text,
+                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                        };
                         int statusCode = await DataLayer.Tasks.Motivo.insertar(motivo);
 
                         if (statusCode == 201)
@@ -68,16 +83,17 @@ namespace UI
                         ChangeState();
                     }
                     else
-                        MessageBox.Show("Ingrese una descripcion de motivo.", "Error!", MessageBoxButtons.OK);
+                        MessageBox.Show("Ingrese una descripcion de motivo antes de guardar!", "Error!", MessageBoxButtons.OK);
                     break;
                 case "actualizar":
-                    if (tbDescripcionMotivo.Text != String.Empty)
+                    if (tbMotivo.Text != String.Empty)
                     {
-                        DataLayer.Models.Motivo _motivo = new DataLayer.Models.Motivo();
-
-                        _motivo.descripcion_motivo = tbDescripcionMotivo.Text;
-                        _motivo.usuario_registro = "dev"; //esto vamos a sacar de los globales, donde registraremos el usuario activo
-                        int statusCode = await DataLayer.Tasks.Motivo.actualizar(_motivo, motivoSeleccionado.id_motivo);
+                        DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo()
+                        {
+                            descripcion_motivo = tbMotivo.Text,
+                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                        };
+                        int statusCode = await DataLayer.Tasks.Motivo.actualizar(motivo, motivoSeleccionado.id_motivo);
 
                         if (statusCode == 200)
                         {
@@ -87,23 +103,9 @@ namespace UI
                         ChangeState();
                     }
                     else
-                        MessageBox.Show("Ingrese una descripcion de motivo.", "Error!", MessageBoxButtons.OK);
+                        MessageBox.Show("Ingrese una descripcion de motivo antes de guardar!", "Error!", MessageBoxButtons.OK);
                     break;
-                
-            }
-            
-        }
 
-        private async void dgvDatos_SelectionChanged(object sender, EventArgs e)
-        {
-            if (loading == false && dgvDatos.SelectedRows.Count == 1)
-            {
-                var a = dgvDatos.SelectedRows[0].Index;
-                int idMotivoSeleccionado = Convert.ToInt32(dgvDatos.SelectedRows[0].Cells[0].Value);
-                motivoSeleccionado = await DataLayer.Tasks.Motivo.seleccionar(idMotivoSeleccionado);
-                bActualizar.Enabled = true;
-                bElimiar.Enabled = true;
-                tbDescripcionMotivo.Text = motivoSeleccionado.descripcion_motivo;
             }
         }
 
@@ -112,15 +114,27 @@ namespace UI
             formState = "init";
             ChangeState();
         }
+
+        private async void dgvMotivos_SelectionChanged(object sender, EventArgs e)
+        {
+            if (this.loading == false && dgvMotivos.SelectedRows.Count == 1)
+            {
+                int idMotivoSeleccionado = Convert.ToInt32(dgvMotivos.SelectedRows[0].Cells[0].Value);
+                this.motivoSeleccionado = await DataLayer.Tasks.Motivo.seleccionar(idMotivoSeleccionado);
+                bActualizar.Enabled = true;
+                bElimiar.Enabled = true;
+                tbMotivo.Text = motivoSeleccionado.descripcion_motivo;
+            }
+        }
         #endregion
 
-        #region Métodos de Apoyo
+        #region Metodos Auxiliares
         private void ChangeState()
         {
             switch (formState)
             {
                 case "init":
-                    tbDescripcionMotivo.Enabled = false;
+                    tbMotivo.Enabled = false;
 
                     bGuardar.Visible = false;
                     bCancelar.Visible = false;
@@ -128,12 +142,12 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvDatos.ReadOnly = false;
-                    dgvDatos.ClearSelection();
+                    dgvMotivos.ReadOnly = false;
+                    dgvMotivos.ClearSelection();
                     break;
                 case "agregar":
-                    tbDescripcionMotivo.Enabled = true;
-                    tbDescripcionMotivo.Text = String.Empty;
+                    tbMotivo.Enabled = true;
+                    tbMotivo.Text = String.Empty;
 
                     bGuardar.Visible = true;
                     bCancelar.Visible = true;
@@ -141,11 +155,11 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvDatos.ClearSelection();
-                    dgvDatos.ReadOnly = true;
+                    dgvMotivos.ClearSelection();
+                    dgvMotivos.ReadOnly = true;
                     break;
                 case "actualizar":
-                    tbDescripcionMotivo.Enabled = true;
+                    tbMotivo.Enabled = true;
 
                     bGuardar.Visible = true;
                     bCancelar.Visible = true;
@@ -153,9 +167,8 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvDatos.ReadOnly = true;
+                    dgvMotivos.ReadOnly = true;
                     break;
-
             }
         }
 
@@ -179,21 +192,27 @@ namespace UI
                     _tempRow[item.Key] = item.Value;
                 dtDatos.Rows.Add(_tempRow);
             }
-            loading = true;
-            dgvDatos.DataSource = dtDatos;
-            dgvDatos.Refresh();
-            dgvDatos.ClearSelection();
-            dgvDatos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvDatos.Columns[0].HeaderText = "ID";
-            dgvDatos.Columns[1].HeaderText = "Descripción Motivo";
-            loading = false;
+            this.loading = true;
+            dtDatos.Columns["id_motivo"].SetOrdinal(0);
+            dtDatos.Columns["descripcion_motivo"].SetOrdinal(1);
+
+            dgvMotivos.DataSource = dtDatos;
+            dgvMotivos.Columns[0].HeaderText = "ID";
+            dgvMotivos.Columns[1].HeaderText = "Descripcion Motivo";
+            dgvMotivos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvMotivos.Columns[0].Width = 0;
+            dgvMotivos.Refresh();
+            dgvMotivos.ClearSelection();
+            this.loading = false;
         }
 
         private async void RefreshData()
         {
             List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
+
         }
         #endregion
+
     }
 }
