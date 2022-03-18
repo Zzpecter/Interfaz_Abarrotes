@@ -198,9 +198,7 @@ namespace UI
 
             dgvMotivos.DataSource = dtDatos;
             dgvMotivos.Columns[0].HeaderText = "ID";
-            dgvMotivos.Columns[1].HeaderText = "Nombre de Usuario";
-            dgvMotivos.Columns[2].HeaderText = "Nivel de Usuario";
-            dgvMotivos.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvMotivos.Columns[1].HeaderText = "Descripcion Motivo";
             dgvMotivos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvMotivos.Columns[0].Width = 0;
             dgvMotivos.Refresh();

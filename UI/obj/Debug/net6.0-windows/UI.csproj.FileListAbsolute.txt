@@ -50,3 +50,4 @@ C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-window
 C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.pdb
 C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.genruntimeconfig.cache
 C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\ref\UI.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmMotivos.resources
