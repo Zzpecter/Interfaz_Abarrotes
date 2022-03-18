@@ -12,6 +12,7 @@ namespace UI
 {
     public partial class FrmCliente : Form
     {
+        #region Inicializacion y Variables
         private DataTable dtDatosCliente;
         private String formState = "init";
         private DataLayer.Models.ViCliente clienteSeleccionado;
@@ -28,93 +29,14 @@ namespace UI
             CreateDataSource(clientes);
             dgvCliente.Rows[0].Selected = true;
         }
-        private void CreateDataSource(List<DataLayer.Models.ViCliente> clientes)
-        {
-            dtDatosCliente = new DataTable();
-            dtDatosCliente.Clear();
 
-            //metodo de ayuda para convertir las propiedades de una instancia en un dict.
-            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[0]);
+        #endregion
 
-            //Agregamos columnas segun los atributos del objeto 
-            foreach (var item in propertyDict)
-                dtDatosCliente.Columns.Add(item.Key);
-            //Agregamos filas
-            for (int i = 0; i < clientes.Count; i++)
-            {
-                propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[i]);
-                DataRow _tempRow = dtDatosCliente.NewRow();
-                foreach (var item in propertyDict)
-                    _tempRow[item.Key] = item.Value;
-                dtDatosCliente.Rows.Add(_tempRow);
-            }
-            loading = true;
-            dgvCliente.DataSource = dtDatosCliente;
-            dgvCliente.Refresh();
-            dgvCliente.ClearSelection();
-            dgvCliente.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvCliente.Columns[0].HeaderText = "ID";
-            dgvCliente.Columns[1].HeaderText = "Nombre/Razon Social";
-            dgvCliente.Columns[2].HeaderText = "Nit/Ci";
-            loading = false;
-        }
-        private async void RefreshData()
-        {
-            List<DataLayer.Models.ViCliente> clientes = await DataLayer.Tasks.Cliente.listar();
-            CreateDataSource(clientes);
-        }
-
+        #region Botones y Controles
         private void bAgregar_Click_1(object sender, EventArgs e)
         {
             formState = "agregar";
             ChangeState();
-        }
-        
-        private void ChangeState()
-        {
-            switch (formState)
-            {
-                case "init":
-                    tbNombreRazonSocial.Enabled = false;
-                    tbNitCi.Enabled = false;
-
-                    bGuardar.Visible = false;
-                    bCancelar.Visible = false;
-                    bAgregar.Enabled = true;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvCliente.ReadOnly = false;
-                    break;
-                case "agregar":
-                    tbNombreRazonSocial.Enabled = true;
-                    tbNombreRazonSocial.Text = String.Empty;
-                    tbNitCi.Enabled = true;
-                    tbNitCi.Text = String.Empty;
-
-                    bGuardar.Visible = true;
-                    bCancelar.Visible = true;
-                    bAgregar.Enabled = false;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvCliente.ClearSelection();
-                    dgvCliente.ReadOnly = true;
-                    break;
-                case "actualizar":
-                    tbNombreRazonSocial.Enabled = true;
-                    tbNitCi.Enabled = true;
-
-                    bGuardar.Visible = true;
-                    bCancelar.Visible = true;
-                    bAgregar.Enabled = false;
-                    bActualizar.Enabled = false;
-                    bElimiar.Enabled = false;
-
-                    dgvCliente.ReadOnly = true;
-                    break;
-
-            }
         }
 
         private void bActualizar_Click_1(object sender, EventArgs e)
@@ -179,27 +101,147 @@ namespace UI
             }
         }
 
-
-        private async void dgvCliente_SelectionChanged_1(object sender, EventArgs e)
-        {
-            if (loading == false && dgvCliente.SelectedRows.Count == 1)
-            {
-                var a = dgvCliente.SelectedRows[0].Index;
-                int idEntidadSeleccionada = Convert.ToInt32(dgvCliente.SelectedRows[0].Cells[0].Value);
-                clienteSeleccionado = await DataLayer.Tasks.Cliente.seleccionar(idEntidadSeleccionada);
-                bActualizar.Enabled = true;
-                bElimiar.Enabled = true;
-                tbNombreRazonSocial.Text = clienteSeleccionado.razon_social;
-            }
-        }
-
-       
-
         private void bCancelar_Click_1(object sender, EventArgs e)
         {
 
             formState = "init";
             ChangeState();
         }
+
+        private async void dgvCliente_SelectionChanged_1(object sender, EventArgs e)
+        {
+            if (loading == false && dgvCliente.SelectedRows.Count == 1)
+            {
+                int idEntidadSeleccionada = Convert.ToInt32(dgvCliente.SelectedRows[0].Cells[0].Value);
+                clienteSeleccionado = await DataLayer.Tasks.Cliente.seleccionar(idEntidadSeleccionada);
+                bActualizar.Enabled = true;
+                bElimiar.Enabled = true;
+                tbNombreRazonSocial.Text = clienteSeleccionado.razon_social;
+
+                // Cargar datos de contacto
+                List<DataLayer.Models.ViContactoUnified> datosContacto = await DataLayer.Tasks.Contacto.listarUnified(idEntidadSeleccionada);
+                if (datosContacto.Count > 0)
+                    RefreshContactData(datosContacto);
+                else
+                {
+                    dgvContactos.DataSource = null;
+                    dgvContactos.Refresh();
+                }
+            }
+        }
+#endregion
+
+        #region Metodos Auxiliares
+        private void ChangeState()
+        {
+            switch (formState)
+            {
+                case "init":
+                    tbNombreRazonSocial.Enabled = false;
+                    tbNitCi.Enabled = false;
+
+                    bGuardar.Visible = false;
+                    bCancelar.Visible = false;
+                    bAgregar.Enabled = true;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvCliente.ReadOnly = false;
+                    break;
+                case "agregar":
+                    tbNombreRazonSocial.Enabled = true;
+                    tbNombreRazonSocial.Text = String.Empty;
+                    tbNitCi.Enabled = true;
+                    tbNitCi.Text = String.Empty;
+
+                    bGuardar.Visible = true;
+                    bCancelar.Visible = true;
+                    bAgregar.Enabled = false;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvCliente.ClearSelection();
+                    dgvCliente.ReadOnly = true;
+                    break;
+                case "actualizar":
+                    tbNombreRazonSocial.Enabled = true;
+                    tbNitCi.Enabled = true;
+
+                    bGuardar.Visible = true;
+                    bCancelar.Visible = true;
+                    bAgregar.Enabled = false;
+                    bActualizar.Enabled = false;
+                    bElimiar.Enabled = false;
+
+                    dgvCliente.ReadOnly = true;
+                    break;
+
+            }
+        }
+
+        private void RefreshContactData(List<DataLayer.Models.ViContactoUnified> datosContacto)
+        {
+            DataTable dtDatosContacto = new DataTable();
+            dtDatosContacto.Clear();
+
+            //metodo de ayuda para convertir las propiedades de una instancia en un dict.
+            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(datosContacto[0]);
+
+            //Agregamos columnas segun los atributos del objeto 
+            foreach (var item in propertyDict)
+                dtDatosContacto.Columns.Add(item.Key);
+            //Agregamos filas
+            for (int i = 0; i < datosContacto.Count; i++)
+            {
+                propertyDict = DataLayer.Helpers.DictionaryFromInstance(datosContacto[i]);
+                DataRow _tempRow = dtDatosContacto.NewRow();
+                foreach (var item in propertyDict)
+                    _tempRow[item.Key] = item.Value;
+                dtDatosContacto.Rows.Add(_tempRow);
+            }
+            dgvContactos.DataSource = dtDatosContacto;
+            dgvContactos.Columns[0].HeaderText = "ID";
+            dgvContactos.Columns[1].HeaderText = "Contacto";
+            dgvContactos.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvContactos.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvContactos.Refresh();
+        }
+
+        private void CreateDataSource(List<DataLayer.Models.ViCliente> clientes)
+        {
+            dtDatosCliente = new DataTable();
+            dtDatosCliente.Clear();
+
+            //metodo de ayuda para convertir las propiedades de una instancia en un dict.
+            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[0]);
+
+            //Agregamos columnas segun los atributos del objeto 
+            foreach (var item in propertyDict)
+                dtDatosCliente.Columns.Add(item.Key);
+            //Agregamos filas
+            for (int i = 0; i < clientes.Count; i++)
+            {
+                propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[i]);
+                DataRow _tempRow = dtDatosCliente.NewRow();
+                foreach (var item in propertyDict)
+                    _tempRow[item.Key] = item.Value;
+                dtDatosCliente.Rows.Add(_tempRow);
+            }
+            loading = true;
+            dgvCliente.DataSource = dtDatosCliente;
+            dgvCliente.Refresh();
+            dgvCliente.ClearSelection();
+            dgvCliente.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvCliente.Columns[0].HeaderText = "ID";
+            dgvCliente.Columns[1].HeaderText = "Nombre/Razon Social";
+            dgvCliente.Columns[2].HeaderText = "Nit/Ci";
+            loading = false;
+        }
+        private async void RefreshData()
+        {
+            List<DataLayer.Models.ViCliente> clientes = await DataLayer.Tasks.Cliente.listar();
+            CreateDataSource(clientes);
+        }
+        #endregion
     }
 }

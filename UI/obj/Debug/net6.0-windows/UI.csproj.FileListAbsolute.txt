@@ -24,3 +24,29 @@ C:\Users\renev\Documents\VS Projects\ApiConnectionTest\ApiConnectTest\UI\obj\Deb
 C:\Users\renev\Documents\VS Projects\ApiConnectionTest\ApiConnectTest\UI\obj\Debug\net6.0-windows\ref\UI.dll
 C:\Users\renev\Documents\VS Projects\ApiConnectionTest\ApiConnectTest\UI\obj\Debug\net6.0-windows\UI.Properties.Resources.resources
 C:\Users\renev\Documents\VS Projects\ApiConnectionTest\ApiConnectTest\UI\obj\Debug\net6.0-windows\UI.FrmUsuario.resources
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\DataLayer.deps.json
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\DataLayer.runtimeconfig.json
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\DataLayer.exe
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.exe
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.deps.json
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.runtimeconfig.json
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.pdb
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\DataLayer.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\DataLayer.pdb
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.csproj.AssemblyReference.cache
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCliente.resources
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmUsuario.resources
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.Properties.Resources.resources
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.csproj.GenerateResource.cache
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.AssemblyInfoInputs.cache
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.AssemblyInfo.cs
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.csproj.CoreCompileInputs.cache
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.csproj.CopyComplete
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\refint\UI.dll
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.pdb
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.genruntimeconfig.cache
+C:\Users\renev\Documents\abarrotes\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\ref\UI.dll
