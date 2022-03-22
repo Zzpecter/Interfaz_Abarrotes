@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
+    // TODO: Al eliminar ver si no hay referencias en presentacion_producto
     public partial class FrmUnidadesPresentacion : Form
     {
         #region Inicializacion y Variables
@@ -48,7 +49,6 @@ namespace UI
         {
             if (dgvUnidades.SelectedRows.Count == 1)
             {
-                // TODO: Eliminar Entidad->Contacto->usuario
                 int statusCode = await DataLayer.Tasks.UnidadPresentacion.eliminar(unidadSeleccionada.id_unidad_presentacion);
 
                 if (statusCode == 200)
@@ -60,8 +60,6 @@ namespace UI
 
         private async void bGuardar_Click(object sender, EventArgs e)
         {
-            bool cumpleCondiciones;
-            DataLayer.PasswordScore passScore;
             switch (formState)
             {
                 case "agregar":

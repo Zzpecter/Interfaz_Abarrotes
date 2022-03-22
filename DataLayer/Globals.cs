@@ -24,6 +24,7 @@ namespace DataLayer
         public static string URL_ENTIDADES = "http://" + API_URL + "entidades";
         public static string URL_PROVEEDORES = "http://" + API_URL + "proveedores";
         public static string URL_UNIDAD_PRESENTACION = "http://" + API_URL + "unidad_presentacion";
+        public static string URL_PRESENTACION_PRODUCTO = "http://" + API_URL + "presentacion_producto";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
