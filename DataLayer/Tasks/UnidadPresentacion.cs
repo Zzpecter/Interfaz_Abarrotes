@@ -2,37 +2,37 @@
 
 namespace DataLayer.Tasks
 {
-    public class PresentacionProducto
+    public class UnidadPresentacion
     {
-        public static async Task<List<Models.ViPresentacionUnidad>> listar()
+        public static async Task<List<Models.ViUnidadPresentacion>> listar()
         {
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Get,
-                Globals.URL_PRESENTACION_PRODUCTO,
+                Globals.URL_UNIDAD_PRESENTACION,
                 String.Empty,
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            List<Models.ViPresentacionUnidad> presentacionesProductos = JsonConvert.DeserializeObject<List<Models.ViPresentacionUnidad>>(responseText);
-            return presentacionesProductos;
+            List<Models.ViUnidadPresentacion> unidadPresentacion = JsonConvert.DeserializeObject<List<Models.ViUnidadPresentacion>>(responseText);
+            return unidadPresentacion;
         }
 
-        public static async Task<int> insertar(Models.PresentacionProducto presentacionProducto)
+        public static async Task<int> insertar(Models.UnidadPresentacion unidadPresentacion)
         {
-            string jsonBody = JsonConvert.SerializeObject(presentacionProducto);
+            string jsonBody = JsonConvert.SerializeObject(unidadPresentacion);
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Post,
-                Globals.URL_PRESENTACION_PRODUCTO,
+                Globals.URL_UNIDAD_PRESENTACION,
                 jsonBody,
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
 
-        public static async Task<int> actualizar(Models.PresentacionProducto presentacionProducto, int idPresentacionProducto)
+        public static async Task<int> actualizar(Models.UnidadPresentacion unidadPresentacion, int idUnidadPresentacion)
         {
-            string jsonBody = JsonConvert.SerializeObject(presentacionProducto);
-            string url = Globals.URL_PRESENTACION_PRODUCTO + "/" + idPresentacionProducto.ToString();
+            string jsonBody = JsonConvert.SerializeObject(unidadPresentacion);
+            string url = Globals.URL_UNIDAD_PRESENTACION + "/" + idUnidadPresentacion.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Put,
@@ -42,9 +42,9 @@ namespace DataLayer.Tasks
             return ((int)response.StatusCode);
         }
 
-        public static async Task<Models.ViPresentacionProducto> seleccionar(int idPresentacionProducto)
+        public static async Task<Models.ViUnidadPresentacion> seleccionar(int idUnidadPresentacion)
         {
-            string url = Globals.URL_PRESENTACION_PRODUCTO + "/" + idPresentacionProducto.ToString();
+            string url = Globals.URL_UNIDAD_PRESENTACION + "/" + idUnidadPresentacion.ToString();
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Get,
                 url,
@@ -52,12 +52,12 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Models.ViPresentacionProducto>(responseText);
+            return JsonConvert.DeserializeObject<Models.ViUnidadPresentacion>(responseText);
         }
 
-        public static async Task<int> eliminar(int idPresentacionProducto)
+        public static async Task<int> eliminar(int idUnidadPresentacion)
         {
-            string url = Globals.URL_PRESENTACION_PRODUCTO + "/" + idPresentacionProducto.ToString();
+            string url = Globals.URL_UNIDAD_PRESENTACION + "/" + idUnidadPresentacion.ToString();
 
             var response = await RequestController.SendHttpRequest(
                 HttpMethod.Delete,

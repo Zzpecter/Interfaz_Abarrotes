@@ -13,6 +13,12 @@ namespace DataLayer.Models
         public string nombre_presentacion { get; set; }
     }
 
+    public class ViPresentacionUnidad : ViPresentacionProducto
+    {
+        public string nombre_medida { get; set; }
+        public Double multiplicador_kg { get; set; }
+    }
+
     public class PresentacionProducto : ViPresentacionProducto
     {
         public string usuario_registro { get; set; }
