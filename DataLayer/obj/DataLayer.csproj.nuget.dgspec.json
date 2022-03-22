@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {}
+    "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {
+    "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
+        "projectPath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\renev\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\obj\\",
+        "outputPath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\renev\\AppData\\Roaming\\NuGet\\NuGet.Config",
