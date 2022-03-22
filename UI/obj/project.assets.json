@@ -71,11 +71,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\UI\\UI.csproj",
+      "projectUniqueName": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\UI\\UI.csproj",
       "projectName": "UI",
-      "projectPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\UI\\UI.csproj",
+      "projectPath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\UI\\UI.csproj",
       "packagesPath": "C:\\Users\\renev\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\UI\\obj\\",
+      "outputPath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\UI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\renev\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,8 +92,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "C:\\Users\\renev\\Documents\\abarrotes\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj"
+            "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\DataLayer\\DataLayer.csproj"
             }
           }
         }
