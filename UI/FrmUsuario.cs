@@ -55,14 +55,12 @@ namespace UI
         {
             if(dgvDatos.SelectedRows.Count == 1)
             {
-                // TODO: Eliminar Entidad->Contacto->usuario
+                // Eliminar Entidad->Contacto->usuario
                 int statusCode = await DataLayer.Tasks.Entidad.eliminar(usuarioSeleccionado.id_entidad);
-                MessageBox.Show("Eliminar entidad. Resultado: " + statusCode.ToString());
                 statusCode = await DataLayer.Tasks.Contacto.eliminarPorEntidad(usuarioSeleccionado.id_entidad);
-                MessageBox.Show("Eliminar contacto. Resultado: " + statusCode.ToString());
                 statusCode = await DataLayer.Tasks.Usuario.eliminar(usuarioSeleccionado.id_entidad);
-                MessageBox.Show("Eliminar usuario. Resultado: " + statusCode.ToString());
-                if (statusCode == 200)
+
+                if (statusCode == 204)
                     RefreshData();
                 formState = "init";
                 ChangeState();
