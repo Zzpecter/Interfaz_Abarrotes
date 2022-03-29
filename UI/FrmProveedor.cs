@@ -1,59 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Data;
 
 namespace UI
 {
-    public partial class FrmCliente : Form
+    public partial class FrmProveedor : Form
     {
         #region Inicializacion y Variables
-        private DataTable dtDatosCliente;
+        private DataTable dtDatos;
         private String formState = "init";
-        private DataLayer.Models.ViCliente clienteSeleccionado;
+        private DataLayer.Models.ViProveedor proveedorSeleccionado;
         private bool loading;
-        public FrmCliente()
+        public FrmProveedor()
         {
             InitializeComponent();
         }
 
-        private async void FrmCliente_Load(object sender, EventArgs e)
+        private async void FrmProveedor_Load(object sender, EventArgs e)
         {
             await DataLayer.Tasks.Authentication.BuildAuthHeaders();
-            List<DataLayer.Models.ViCliente> clientes = await DataLayer.Tasks.Cliente.listar();
-            CreateDataSource(clientes);
-            dgvCliente.Rows[0].Selected = true;
+            List<DataLayer.Models.ViProveedor> proveedores = await DataLayer.Tasks.Proveedor.listar();
+            CreateDataSource(proveedores);
         }
-
         #endregion
 
         #region Botones y Controles
-        private void bAgregar_Click_1(object sender, EventArgs e)
+        private void bAgregar_Click(object sender, EventArgs e)
         {
             formState = "agregar";
             ChangeState();
         }
 
-        private void bActualizar_Click_1(object sender, EventArgs e)
+        private void bActualizar_Click(object sender, EventArgs e)
         {
             formState = "actualizar";
             ChangeState();
         }
 
-        private async void bElimiar_Click_1(object sender, EventArgs e)
+        private async void bElimiar_Click(object sender, EventArgs e)
         {
-            if (dgvCliente.SelectedRows.Count == 1)
+            if (dgvProveedores.SelectedRows.Count == 1)
             {
                 // Eliminar Entidad->Contacto->usuario
-                int statusCode = await DataLayer.Tasks.Entidad.eliminar(clienteSeleccionado.id_entidad);
-                statusCode = await DataLayer.Tasks.Contacto.eliminarPorEntidad(clienteSeleccionado.id_entidad);
+                int statusCode = await DataLayer.Tasks.Entidad.eliminar(proveedorSeleccionado.id_entidad);
+                statusCode = await DataLayer.Tasks.Contacto.eliminarPorEntidad(proveedorSeleccionado.id_entidad);
+                statusCode = await DataLayer.Tasks.Proveedor.eliminar(proveedorSeleccionado.id_entidad);
 
-                statusCode = await DataLayer.Tasks.Cliente.eliminar(clienteSeleccionado.id_entidad);
                 if (statusCode == 204)
                     RefreshData();
                 formState = "init";
@@ -61,15 +51,25 @@ namespace UI
             }
         }
 
-        private async void bGuardar_Click_1(object sender, EventArgs e)
+        private async void bGuardar_Click(object sender, EventArgs e)
         {
             switch (formState)
             {
                 case "agregar":
-                    if (tbNombreRazonSocial.Text != String.Empty && tbNitCi.Text != String.Empty)
+                    if (tbNombre.Text != String.Empty)
                     {
-                        DataLayer.Models.Cliente cliente = new DataLayer.Models.Cliente() { razon_social = tbNombreRazonSocial.Text, nit_ci = tbNitCi.Text, usuario_registro = "dev" };
-                        int statusCode = await DataLayer.Tasks.Cliente.insertar(cliente);
+
+                        //Insertar nueva entidad para generar el ID.
+                        DataLayer.Models.Entidad entidad = await DataLayer.Tasks.Entidad.insertar();
+
+                        DataLayer.Models.Proveedor _proveedor = new DataLayer.Models.Proveedor()
+                        {
+                            id_entidad = entidad.id_entidad,
+                            nombre = tbNombre.Text,
+                            usuario_registro = "dev" //esto vamos a sacar de los globales, donde registraremos el usuario activo
+
+                        };
+                        int statusCode = await DataLayer.Tasks.Proveedor.insertar(_proveedor);
 
                         if (statusCode == 201)
                         {
@@ -79,17 +79,18 @@ namespace UI
                         ChangeState();
                     }
                     else
-                        MessageBox.Show("Ingrese nombre del cliente.", "Error!", MessageBoxButtons.OK);
+                        MessageBox.Show("Ingrese nombre del proveedor.", "Error!", MessageBoxButtons.OK);
                     break;
                 case "actualizar":
-                    if (tbNombreRazonSocial.Text != String.Empty && tbNitCi.Text != String.Empty)
+                    if (tbNombre.Text != String.Empty)
                     {
-                        DataLayer.Models.Cliente _cliente = new DataLayer.Models.Cliente();
+                        DataLayer.Models.Proveedor _proveedor = new DataLayer.Models.Proveedor()
+                        {
+                            nombre = tbNombre.Text,
+                            usuario_registro = "dev" //esto vamos a sacar de los globales, donde registraremos el usuario activo
 
-                        _cliente.razon_social = tbNombreRazonSocial.Text;
-                        _cliente.nit_ci = tbNitCi.Text;
-                        _cliente.usuario_registro = "dev"; //esto vamos a sacar de los globales, donde registraremos el usuario activo
-                        int statusCode = await DataLayer.Tasks.Cliente.actualizar(_cliente, clienteSeleccionado.id_entidad);
+                        };
+                        int statusCode = await DataLayer.Tasks.Proveedor.actualizar(_proveedor, proveedorSeleccionado.id_entidad);
 
                         if (statusCode == 200)
                         {
@@ -99,27 +100,27 @@ namespace UI
                         ChangeState();
                     }
                     else
-                        MessageBox.Show("Ingrese el nombre del cliente.", "Error!", MessageBoxButtons.OK);
+                        MessageBox.Show("Ingrese el nombre del proveedor.", "Error!", MessageBoxButtons.OK);
                     break;
 
             }
         }
 
-        private void bCancelar_Click_1(object sender, EventArgs e)
+        private void bCancelar_Click(object sender, EventArgs e)
         {
             formState = "init";
             ChangeState();
         }
 
-        private async void dgvCliente_SelectionChanged_1(object sender, EventArgs e)
+        private async void dgvProveedores_SelectionChanged(object sender, EventArgs e)
         {
-            if (loading == false && dgvCliente.SelectedRows.Count == 1)
+            if (loading == false && dgvProveedores.SelectedRows.Count == 1)
             {
-                int idEntidadSeleccionada = Convert.ToInt32(dgvCliente.SelectedRows[0].Cells[0].Value);
-                clienteSeleccionado = await DataLayer.Tasks.Cliente.seleccionar(idEntidadSeleccionada);
+                int idEntidadSeleccionada = Convert.ToInt32(dgvProveedores.SelectedRows[0].Cells[0].Value);
+                proveedorSeleccionado = await DataLayer.Tasks.Proveedor.seleccionar(idEntidadSeleccionada);
                 bActualizar.Enabled = true;
                 bElimiar.Enabled = true;
-                tbNombreRazonSocial.Text = clienteSeleccionado.razon_social;
+                tbNombre.Text = proveedorSeleccionado.nombre;
 
                 // Cargar datos de contacto
                 List<DataLayer.Models.ViContactoUnified> datosContacto = await DataLayer.Tasks.Contacto.listarUnified(idEntidadSeleccionada);
@@ -132,7 +133,7 @@ namespace UI
                 }
             }
         }
-#endregion
+        #endregion
 
         #region Metodos Auxiliares
         private void ChangeState()
@@ -140,8 +141,7 @@ namespace UI
             switch (formState)
             {
                 case "init":
-                    tbNombreRazonSocial.Enabled = false;
-                    tbNitCi.Enabled = false;
+                    tbNombre.Enabled = false;
 
                     bGuardar.Visible = false;
                     bCancelar.Visible = false;
@@ -149,13 +149,11 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvCliente.ReadOnly = false;
+                    dgvProveedores.ReadOnly = false;
                     break;
                 case "agregar":
-                    tbNombreRazonSocial.Enabled = true;
-                    tbNombreRazonSocial.Text = String.Empty;
-                    tbNitCi.Enabled = true;
-                    tbNitCi.Text = String.Empty;
+                    tbNombre.Enabled = true;
+                    tbNombre.Text = String.Empty;
 
                     bGuardar.Visible = true;
                     bCancelar.Visible = true;
@@ -163,12 +161,11 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvCliente.ClearSelection();
-                    dgvCliente.ReadOnly = true;
+                    dgvProveedores.ClearSelection();
+                    dgvProveedores.ReadOnly = true;
                     break;
                 case "actualizar":
-                    tbNombreRazonSocial.Enabled = true;
-                    tbNitCi.Enabled = true;
+                    tbNombre.Enabled = true;
 
                     bGuardar.Visible = true;
                     bCancelar.Visible = true;
@@ -176,9 +173,8 @@ namespace UI
                     bActualizar.Enabled = false;
                     bElimiar.Enabled = false;
 
-                    dgvCliente.ReadOnly = true;
+                    dgvProveedores.ReadOnly = true;
                     break;
-
             }
         }
 
@@ -210,40 +206,40 @@ namespace UI
             dgvContactos.Refresh();
         }
 
-        private void CreateDataSource(List<DataLayer.Models.ViCliente> clientes)
+        private void CreateDataSource(List<DataLayer.Models.ViProveedor> proveedores)
         {
-            dtDatosCliente = new DataTable();
-            dtDatosCliente.Clear();
+            dtDatos = new DataTable();
+            dtDatos.Clear();
 
             //metodo de ayuda para convertir las propiedades de una instancia en un dict.
-            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[0]);
+            Dictionary<string, object> propertyDict = DataLayer.Helpers.DictionaryFromInstance(proveedores[0]);
 
             //Agregamos columnas segun los atributos del objeto 
             foreach (var item in propertyDict)
-                dtDatosCliente.Columns.Add(item.Key);
+                dtDatos.Columns.Add(item.Key);
             //Agregamos filas
-            for (int i = 0; i < clientes.Count; i++)
+            for (int i = 0; i < proveedores.Count; i++)
             {
-                propertyDict = DataLayer.Helpers.DictionaryFromInstance(clientes[i]);
-                DataRow _tempRow = dtDatosCliente.NewRow();
+                propertyDict = DataLayer.Helpers.DictionaryFromInstance(proveedores[i]);
+                DataRow _tempRow = dtDatos.NewRow();
                 foreach (var item in propertyDict)
                     _tempRow[item.Key] = item.Value;
-                dtDatosCliente.Rows.Add(_tempRow);
+                dtDatos.Rows.Add(_tempRow);
             }
             loading = true;
-            dgvCliente.DataSource = dtDatosCliente;
-            dgvCliente.Refresh();
-            dgvCliente.ClearSelection();
-            dgvCliente.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvCliente.Columns[0].HeaderText = "ID";
-            dgvCliente.Columns[1].HeaderText = "Nombre/Razon Social";
-            dgvCliente.Columns[2].HeaderText = "Nit/Ci";
+            dgvProveedores.DataSource = dtDatos;
+            dgvProveedores.Refresh();
+            dgvProveedores.ClearSelection();
+            dgvProveedores.Columns[0].HeaderText = "ID";
+            dgvProveedores.Columns[1].HeaderText = "Nombre Proveedor";
+            dgvProveedores.Columns[0].Width = 0;
+            dgvProveedores.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             loading = false;
         }
         private async void RefreshData()
         {
-            List<DataLayer.Models.ViCliente> clientes = await DataLayer.Tasks.Cliente.listar();
-            CreateDataSource(clientes);
+            List<DataLayer.Models.ViProveedor> proveedores = await DataLayer.Tasks.Proveedor.listar();
+            CreateDataSource(proveedores);
         }
         #endregion
     }
