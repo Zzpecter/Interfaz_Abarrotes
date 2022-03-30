@@ -70,6 +70,21 @@ namespace DataLayer.Tasks
             return JsonConvert.DeserializeObject<Models.ViProductoAlmacen>(responseText);
         }
 
+        public static async Task<Models.ViProductoAlmacen> seleccionarAlmacen(int idAlmacen)
+        {
+            string url = Globals.URL_PRODUCTO_ALMACEN_ALMACEN + "/" + idAlmacen.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("almacen no encontrado"))
+                return new Models.ViProductoAlmacen() { id_producto_almacen = -1 }; //devuelve id-1 si no existe
+            return JsonConvert.DeserializeObject<Models.ViProductoAlmacen>(responseText);
+        }
+
         public static async Task<int> eliminar(int idProductoAlmacen)
         {
             string url = Globals.URL_PRODUCTO_ALMACEN + "/" + idProductoAlmacen.ToString();

@@ -82,3 +82,4 @@ C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-wind
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmProveedor.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmPresentacionProducto.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmProductos.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmAlmacenes.resources
