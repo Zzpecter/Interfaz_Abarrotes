@@ -25,6 +25,11 @@ namespace DataLayer
         public static string URL_PROVEEDORES = "http://" + API_URL + "proveedores";
         public static string URL_UNIDAD_PRESENTACION = "http://" + API_URL + "unidad_presentacion";
         public static string URL_PRESENTACION_PRODUCTO = "http://" + API_URL + "presentacion_producto";
+        public static string URL_PRODUCTOS = "http://" + API_URL + "productos";
+        public static string URL_VI_PRODUCTOS = "http://" + API_URL + "views/producto_presentacion";
+        public static string URL_PRODUCTO_ALMACEN = "http://" + API_URL + "producto_almacen";
+        public static string URL_PRODUCTO_ALMACEN_PRODUCTO = "http://" + API_URL + "producto_almacen/producto";
+        public static string URL_PRODUCTOS_BUSCAR = "http://" + API_URL + "productos/buscar";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
@@ -41,6 +46,9 @@ namespace DataLayer
             "- Agregue uno o más dígitos (0-9). O\n" +
             "- Agregue una o más mayúsculas (A-Z). O\n" +
             "- Agregue uno o más caracteres especiales ($%&).";
+
+        public const string MSJ_PRODUCTO_EN_ALMACEN = "El producto que desea eliminar se encuentra registrado en almacenes.\n" +
+            "Debe disponer de todo el stock en almacen dle producto antes de eliminarlo.";
         #endregion
     }
 }
