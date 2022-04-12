@@ -12,4 +12,9 @@
     {
         public string usuario_registro { get; set; }
     }
+
+    public class ViEntidadContactoCorreo : ViContactoCorreo
+    {
+        public int id_entidad { get; set; }
+    }
 }

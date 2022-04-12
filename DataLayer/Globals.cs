@@ -5,7 +5,7 @@ namespace DataLayer
 {
     public static class Globals
     {
-        public const string IP = "192.168.1.2";
+        public const string IP = "192.168.1.7";
         public const string PORT = "5000";
         public static string API_URL = IP + ":" + PORT + "/api/v1/";
         public static string URL_AUTH = "http://" + IP + ":" + PORT + "/auth/login";
@@ -32,6 +32,13 @@ namespace DataLayer
         public static string URL_PRODUCTO_ALMACEN_ALMACEN = "http://" + API_URL + "producto_almacen/almacen";
         public static string URL_PRODUCTOS_BUSCAR = "http://" + API_URL + "productos/buscar";
         public static string URL_ALMACENES = "http://" + API_URL + "almacenes";
+        public static string URL_CONTACTO_CORREO_BY_CONTACTO = "http://" + API_URL + "contactos_correo/contacto";
+        public static string URL_CONTACTO_TELEFONO_BY_CONTACTO = "http://" + API_URL + "contactos_telefono/contacto";
+        public static string URL_CONTACTO_DIRECCION_BY_CONTACTO = "http://" + API_URL + "contactos_direccion/contacto";
+        public static string URL_LOCALIDAD_DEPARTAMENTO = "http://" + API_URL + "localidades/departamento";
+        public static string URL_CONTACTO_CORREO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_correo";
+        public static string URL_CONTACTO_TELEFONO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_telefono";
+        public static string URL_CONTACTO_DIRECCION_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_direccion";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 

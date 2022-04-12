@@ -5,7 +5,7 @@ namespace DataLayer.Tasks
 {
     public class Contacto
     {
-        public static async Task<int> insertar(Models.Contacto contacto)
+        public static async Task<Models.Contacto> insertar(Models.Contacto contacto)
         {
             string jsonBody = JsonConvert.SerializeObject(contacto);
 
@@ -14,7 +14,8 @@ namespace DataLayer.Tasks
                 Globals.URL_CONTACTOS,
                 jsonBody,
                 Globals.HTTP_HEADERS);
-            return ((int)response.StatusCode);
+            string responseText = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Models.Contacto>(responseText);
         }
 
         public static async Task<int> eliminar(int idContacto)

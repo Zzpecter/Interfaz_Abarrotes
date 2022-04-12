@@ -52,7 +52,9 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<DataLayer.Models.ViProveedor>(responseText);
+            if (responseText.Contains("contacto no encontrado"))
+                return new Models.ViProveedor(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<Models.ViProveedor>(responseText);
         }
 
         public static async Task<int> eliminar(int idProveedor)

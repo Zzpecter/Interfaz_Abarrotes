@@ -63,7 +63,10 @@ namespace DataLayer.Tasks
                 String.Empty,
                 Globals.HTTP_HEADERS);
 
+
             string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("contacto no encontrado"))
+                return new Models.ViUsuario(); //devuelve lista vacia
             return JsonConvert.DeserializeObject<Models.ViUsuario>(responseText);
         }
 

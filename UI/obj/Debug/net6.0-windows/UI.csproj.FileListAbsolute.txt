@@ -84,3 +84,4 @@ C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-wind
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmProductos.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmAlmacenes.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmLocalidades.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmContactos.resources

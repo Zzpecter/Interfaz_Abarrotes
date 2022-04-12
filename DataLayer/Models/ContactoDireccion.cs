@@ -21,4 +21,11 @@ namespace DataLayer.Models
     {
         public string usuario_registro { get; set; }
     }
+    public class ViEntidadContactoDireccion : ViContactoDireccion
+    {
+        public int id_entidad { get; set; }
+        public int id_departamento { get; set; }
+        public string nombre_departamento { get; set; }
+        public string nombre_localidad { get; set; }
+    }
 }

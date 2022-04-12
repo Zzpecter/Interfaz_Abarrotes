@@ -55,6 +55,28 @@ namespace DataLayer.Tasks
             return JsonConvert.DeserializeObject<Models.ViLocalidad>(responseText);
         }
 
+        public static async Task<List<Models.ViLocalidad>> seleccionarPorDepartamento(int idDepartamento)
+        {
+            string url = Globals.URL_LOCALIDAD_DEPARTAMENTO + "/" + idDepartamento.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("localidad no encontrada"))
+                return new List<Models.ViLocalidad>(); //devuelve lista vacia
+            try
+            {
+                return JsonConvert.DeserializeObject<List<Models.ViLocalidad>>(responseText);
+            }
+            catch
+            {
+                return new List<Models.ViLocalidad> { JsonConvert.DeserializeObject<Models.ViLocalidad>(responseText) };
+            }
+        }
+
         public static async Task<int> eliminar(int idLocalidad)
         {
             string url = Globals.URL_LOCALIDAD + "/" + idLocalidad.ToString();
