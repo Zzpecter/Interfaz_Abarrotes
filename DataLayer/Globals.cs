@@ -5,7 +5,7 @@ namespace DataLayer
 {
     public static class Globals
     {
-        public const string IP = "192.168.1.7";
+        public const string IP = "192.168.1.4";
         public const string PORT = "5000";
         public static string API_URL = IP + ":" + PORT + "/api/v1/";
         public static string URL_AUTH = "http://" + IP + ":" + PORT + "/auth/login";
@@ -39,6 +39,8 @@ namespace DataLayer
         public static string URL_CONTACTO_CORREO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_correo";
         public static string URL_CONTACTO_TELEFONO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_telefono";
         public static string URL_CONTACTO_DIRECCION_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_direccion";
+        public static string URL_COMPRAS = "http://" + API_URL + "compras";
+        public static string URL_DETALLE_ENTRADA = "http://" + API_URL + "detalle_entrada";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
@@ -46,8 +48,6 @@ namespace DataLayer
                 {
                     { "Authorization", ""}
                 };
-
-
 
         #region Mensajes
         public const string MSJ_PASS_DEBIL = "La contraseña ingresada es muy débil, Intente:\n" +

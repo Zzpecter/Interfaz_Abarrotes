@@ -55,6 +55,21 @@ namespace DataLayer.Tasks
             return JsonConvert.DeserializeObject<DataLayer.Models.ViProducto>(responseText);
         }
 
+        public static async Task<Models.ViProductoPresentacionUnidad> seleccionarPresentacionUnidad(int idProducto)
+        {
+            string url = Globals.URL_VI_PRODUCTOS + "/" + idProducto.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("producto no encontrado"))
+                return new Models.ViProductoPresentacionUnidad(); //devuelve objeto vacio
+            return JsonConvert.DeserializeObject<Models.ViProductoPresentacionUnidad>(responseText);
+        }
+
         public static async Task<List<Models.ViProductoPresentacionUnidad>> buscar(string query)
         {
             string url = Globals.URL_PRODUCTOS_BUSCAR + "/" + query;
