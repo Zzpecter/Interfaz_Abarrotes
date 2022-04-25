@@ -69,9 +69,9 @@ namespace UI
                     if (tbNombreRazonSocial.Text != String.Empty && tbNitCi.Text != String.Empty)
                     {
                         DataLayer.Models.Cliente cliente = new DataLayer.Models.Cliente() { razon_social = tbNombreRazonSocial.Text, nit_ci = tbNitCi.Text, usuario_registro = "dev" };
-                        int statusCode = await DataLayer.Tasks.Cliente.insertar(cliente);
+                        DataLayer.Models.ViCliente _cliente = await DataLayer.Tasks.Cliente.insertar(cliente);
 
-                        if (statusCode == 201)
+                        if (_cliente.id_entidad != -1)
                         {
                             RefreshData();
                         }

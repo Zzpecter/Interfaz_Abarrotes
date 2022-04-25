@@ -40,6 +40,7 @@
             this.bAgregar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbUnidades = new System.Windows.Forms.ComboBox();
+            this.cbCantidadFraccionada = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresentaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             this.bVolver.BackColor = System.Drawing.Color.WhiteSmoke;
             this.bVolver.Image = global::UI.Properties.Resources.volver;
             this.bVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bVolver.Location = new System.Drawing.Point(13, 427);
+            this.bVolver.Location = new System.Drawing.Point(13, 472);
             this.bVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bVolver.Name = "bVolver";
             this.bVolver.Size = new System.Drawing.Size(139, 45);
@@ -198,11 +199,23 @@
             this.cmbUnidades.TabIndex = 53;
             this.cmbUnidades.SelectedIndexChanged += new System.EventHandler(this.cmbUnidades_SelectedIndexChanged);
             // 
+            // cbCantidadFraccionada
+            // 
+            this.cbCantidadFraccionada.AutoSize = true;
+            this.cbCantidadFraccionada.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbCantidadFraccionada.Location = new System.Drawing.Point(128, 424);
+            this.cbCantidadFraccionada.Name = "cbCantidadFraccionada";
+            this.cbCantidadFraccionada.Size = new System.Drawing.Size(373, 28);
+            this.cbCantidadFraccionada.TabIndex = 54;
+            this.cbCantidadFraccionada.Text = "Permite Cantidades Fraccionadas";
+            this.cbCantidadFraccionada.UseVisualStyleBackColor = true;
+            // 
             // FrmPresentacionProducto
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(679, 484);
+            this.ClientSize = new System.Drawing.Size(679, 529);
+            this.Controls.Add(this.cbCantidadFraccionada);
             this.Controls.Add(this.cmbUnidades);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bVolver);
@@ -241,5 +254,6 @@
         private Button bAgregar;
         private Label label1;
         private ComboBox cmbUnidades;
+        private CheckBox cbCantidadFraccionada;
     }
 }

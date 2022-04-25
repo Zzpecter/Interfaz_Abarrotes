@@ -26,7 +26,20 @@ namespace DataLayer.Models
     {
         public int id_unidad_presentacion { get; set; }
         public string presentacion { get; set; }
+        public bool permite_cantidad_fraccionada { get; set; }
         public string unidades { get; set; }
         public string multiplicador_kg { get; set; }
+    }
+
+    public class ViProductoEnAlmacen : ViProductoPresentacionUnidad
+    {
+        public int id_almacen { get; set; }
+        public string almacen { get; set; }
+    }
+    public class ViProductoVenta : ViProductoEnAlmacen
+    {
+        public decimal cantidad { get; set; }
+        public decimal sub_total { get; set; }
+
     }
 }

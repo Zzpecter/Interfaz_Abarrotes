@@ -17,7 +17,7 @@ namespace DataLayer.Tasks
             return clientes;
         }
 
-        public static async Task<int> insertar(Models.Cliente cliente)
+        public static async Task<Models.ViCliente> insertar(Models.Cliente cliente)
         {
             string jsonBody = JsonConvert.SerializeObject(cliente);
 
@@ -26,7 +26,8 @@ namespace DataLayer.Tasks
                 Globals.URL_CLIENTES,
                 jsonBody,
                 Globals.HTTP_HEADERS);
-            return ((int)response.StatusCode);
+            string responseText = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Models.ViCliente>(responseText);
         }
 
         public static async Task<int> actualizar(Models.Cliente cliente, int idCliente)
@@ -54,6 +55,22 @@ namespace DataLayer.Tasks
             string responseText = await response.Content.ReadAsStringAsync();
             if (responseText.Contains("contacto no encontrado"))
                 return new Models.ViCliente(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<Models.ViCliente>(responseText);
+        }
+
+
+        public static async Task<Models.ViCliente> seleccionarPorNit(string nit)
+        {
+            string url = Globals.URL_CLIENTE_NIT + "/" + nit;
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("cliente no encontrado"))
+                return new Models.ViCliente() { id_entidad = -1 };
             return JsonConvert.DeserializeObject<Models.ViCliente>(responseText);
         }
 

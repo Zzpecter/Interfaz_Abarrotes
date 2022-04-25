@@ -90,9 +90,10 @@ namespace UI
                         //Crear e insertar la unidad de presentacion
                         DataLayer.Models.PresentacionProducto presentacionProducto = new DataLayer.Models.PresentacionProducto()
                         {
-                            nombre_presentacion = tbNombrePresentacion.Text,
                             id_unidad_presentacion = this.unidadSeleccionada.id_unidad_presentacion,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            nombre_presentacion = tbNombrePresentacion.Text,
+                            permite_cantidad_fraccionada = this.cbCantidadFraccionada.Checked,
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.PresentacionProducto.insertar(presentacionProducto);
 
@@ -111,9 +112,10 @@ namespace UI
                     {
                         DataLayer.Models.PresentacionProducto presentacionProducto = new DataLayer.Models.PresentacionProducto()
                         {
-                            nombre_presentacion = tbNombrePresentacion.Text,
                             id_unidad_presentacion = this.unidadSeleccionada.id_unidad_presentacion,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            nombre_presentacion = tbNombrePresentacion.Text,
+                            permite_cantidad_fraccionada = this.cbCantidadFraccionada.Checked,
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.PresentacionProducto.actualizar(presentacionProducto, presentacionSeleccionada.id_presentacion_producto);
 

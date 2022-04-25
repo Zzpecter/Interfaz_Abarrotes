@@ -7,6 +7,12 @@
     <Compile Update="FrmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmCompactClienteInsertar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmCompactProductoBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmCompras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -28,10 +34,16 @@
     <Compile Update="FrmProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmSelectorCantidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmUnidadesPresentacion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmVentas.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

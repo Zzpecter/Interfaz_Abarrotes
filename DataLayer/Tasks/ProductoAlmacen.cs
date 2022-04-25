@@ -96,5 +96,63 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
+
+        public static async Task<Models.ViProductoEnAlmacen> seleccionarProductoEnAlmacen(int idProducto)
+        {
+            string url = Globals.URL_PRODUCTO_EN_ALMACEN + "/" + idProducto.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("producto no encontrado"))
+                return new Models.ViProductoEnAlmacen() { id_producto = -1 }; //devuelve id-1 si no existe
+            return JsonConvert.DeserializeObject<Models.ViProductoEnAlmacen>(responseText);
+        }
+
+        public static async Task<List<Models.ViProductoEnAlmacen>> buscarProductoEnAlmacen(string query)
+        {
+            string url = Globals.URL_PRODUCTO_EN_ALMACEN + "/buscar/" + query;
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("producto no encontrado"))
+                return new List<Models.ViProductoEnAlmacen>(); //devuelve lista vacia
+            try
+            {
+                return JsonConvert.DeserializeObject<List<Models.ViProductoEnAlmacen>>(responseText);
+            }
+            catch
+            {
+                return new List<Models.ViProductoEnAlmacen> { JsonConvert.DeserializeObject<Models.ViProductoEnAlmacen>(responseText) };
+            }
+        }
+
+        public static async Task<List<Models.ViProductoEnAlmacen>> listarProductoEnAlmacen()
+        {
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                Globals.URL_PRODUCTO_EN_ALMACEN,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("producto no encontrado"))
+                return new List<Models.ViProductoEnAlmacen>(); //devuelve lista vacia
+            try
+            {
+                return JsonConvert.DeserializeObject<List<Models.ViProductoEnAlmacen>>(responseText);
+            }
+            catch
+            {
+                return new List<Models.ViProductoEnAlmacen> { JsonConvert.DeserializeObject<Models.ViProductoEnAlmacen>(responseText) };
+            }
+        }
     }
 }

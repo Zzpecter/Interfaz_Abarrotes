@@ -11,6 +11,7 @@ namespace DataLayer.Models
         public int id_presentacion_producto { get; set; }
         public int id_unidad_presentacion { get; set; }
         public string nombre_presentacion { get; set; }
+        public bool permite_cantidad_fraccionada { get; set; }
     }
 
     public class ViPresentacionUnidad : ViPresentacionProducto

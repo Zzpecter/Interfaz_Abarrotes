@@ -86,3 +86,7 @@ C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-wind
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmLocalidades.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmContactos.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCompras.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCompactClienteInsertar.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmVentas.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCompactProductoBuscar.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmSelectorCantidad.resources

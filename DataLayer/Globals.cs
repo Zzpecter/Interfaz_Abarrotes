@@ -41,6 +41,8 @@ namespace DataLayer
         public static string URL_CONTACTO_DIRECCION_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_direccion";
         public static string URL_COMPRAS = "http://" + API_URL + "compras";
         public static string URL_DETALLE_ENTRADA = "http://" + API_URL + "detalle_entrada";
+        public static string URL_CLIENTE_NIT = "http://" + API_URL + "cliente/nit";
+        public static string URL_PRODUCTO_EN_ALMACEN = "http://" + API_URL + "views/producto_almacen";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
