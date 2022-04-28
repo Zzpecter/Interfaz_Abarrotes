@@ -25,7 +25,6 @@ namespace UI
 
         private async void FrmAlmacenes_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViAlmacen> almacenes = await DataLayer.Tasks.Almacen.listar();
             CreateDataSource(almacenes);
         }
@@ -75,7 +74,7 @@ namespace UI
                         DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
                         {
                             descripcion = tbAlmacen.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Almacen.insertar(almacen);
 
@@ -93,7 +92,7 @@ namespace UI
                         DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
                         {
                             descripcion = tbAlmacen.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Almacen.actualizar(almacen, almacenSeleccionado.id_almacen);
 

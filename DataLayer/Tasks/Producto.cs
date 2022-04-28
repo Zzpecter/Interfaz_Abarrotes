@@ -17,7 +17,7 @@ namespace DataLayer.Tasks
             return productos;
         }
 
-        public static async Task<int> insertar(Models.Producto producto)
+        public static async Task<Models.Producto> insertar(Models.Producto producto)
         {
             string jsonBody = JsonConvert.SerializeObject(producto);
 
@@ -26,7 +26,8 @@ namespace DataLayer.Tasks
                 Globals.URL_PRODUCTOS,
                 jsonBody,
                 Globals.HTTP_HEADERS);
-            return ((int)response.StatusCode);
+            string responseText = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Models.Producto>(responseText);
         }
 
         public static async Task<int> actualizar(Models.Producto producto, int idProducto)

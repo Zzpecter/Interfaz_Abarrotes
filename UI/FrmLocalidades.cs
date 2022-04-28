@@ -29,7 +29,6 @@ namespace UI
 
         private async void FrmLocalidades_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViLocalidad> localidades = await DataLayer.Tasks.Localidad.listar();
             CreateDataSource(localidades);
 
@@ -93,7 +92,7 @@ namespace UI
                         {
                             nombre_localidad = tbNombreLocalidad.Text,
                             id_departamento = this.departamentoSeleccionado.id_departamento,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Localidad.insertar(localidad);
 
@@ -112,7 +111,7 @@ namespace UI
                         {
                             nombre_localidad = tbNombreLocalidad.Text,
                             id_departamento = this.departamentoSeleccionado.id_departamento,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Localidad.actualizar(localidad, localidadSeleccionada.id_localidad);
 

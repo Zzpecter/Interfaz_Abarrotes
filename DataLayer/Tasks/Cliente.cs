@@ -53,8 +53,8 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
 
             string responseText = await response.Content.ReadAsStringAsync();
-            if (responseText.Contains("contacto no encontrado"))
-                return new Models.ViCliente(); //devuelve lista vacia
+            if (responseText.Contains("cliente no encontrado"))
+                return new Models.ViCliente() { id_entidad = -1 }; //devuelve lista vacia
             return JsonConvert.DeserializeObject<Models.ViCliente>(responseText);
         }
 

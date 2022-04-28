@@ -26,7 +26,6 @@ namespace UI
 
         private async void FrmUnidadesPresentacion_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViUnidadPresentacion> unidadesPresentacion = await DataLayer.Tasks.UnidadPresentacion.listar();
             CreateDataSource(unidadesPresentacion);
         }
@@ -70,7 +69,7 @@ namespace UI
                         {
                             nombre_medida = tbNombreMedida.Text,
                             multiplicador_kg = Convert.ToDouble(tbMultiplicadorKg.Value),
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.UnidadPresentacion.insertar(unidadPresentacion);
 
@@ -91,7 +90,7 @@ namespace UI
                         {
                             nombre_medida = tbNombreMedida.Text,
                             multiplicador_kg = Convert.ToDouble(tbMultiplicadorKg.Value),
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.UnidadPresentacion.actualizar(unidadPresentacion, unidadSeleccionada.id_unidad_presentacion);
 

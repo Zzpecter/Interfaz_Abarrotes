@@ -24,8 +24,6 @@ namespace UI
 
         private async void FrmCompactProductoBuscar_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
-
             productosEnAlmacen = await DataLayer.Tasks.ProductoAlmacen.listarProductoEnAlmacen();
             CreateDataSource(productosEnAlmacen);
         }

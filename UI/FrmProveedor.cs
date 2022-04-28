@@ -16,7 +16,6 @@ namespace UI
 
         private async void FrmProveedor_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders();
             List<DataLayer.Models.ViProveedor> proveedores = await DataLayer.Tasks.Proveedor.listar();
             CreateDataSource(proveedores);
         }
@@ -66,7 +65,7 @@ namespace UI
                         {
                             id_entidad = entidad.id_entidad,
                             nombre = tbNombre.Text,
-                            usuario_registro = "dev" //esto vamos a sacar de los globales, donde registraremos el usuario activo
+                            usuario_registro = Sesion.login_usuario
 
                         };
                         int statusCode = await DataLayer.Tasks.Proveedor.insertar(_proveedor);
@@ -87,7 +86,7 @@ namespace UI
                         DataLayer.Models.Proveedor _proveedor = new DataLayer.Models.Proveedor()
                         {
                             nombre = tbNombre.Text,
-                            usuario_registro = "dev" //esto vamos a sacar de los globales, donde registraremos el usuario activo
+                            usuario_registro = Sesion.login_usuario
 
                         };
                         int statusCode = await DataLayer.Tasks.Proveedor.actualizar(_proveedor, proveedorSeleccionado.id_entidad);

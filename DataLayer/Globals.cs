@@ -1,12 +1,13 @@
 ﻿using Newtonsoft.Json;
+using System.Configuration;
 using System.IO;
 
 namespace DataLayer
 {
     public static class Globals
     {
-        public const string IP = "192.168.1.4";
-        public const string PORT = "5000";
+        public static string IP = "127.0.0.1";
+        public static string PORT = "5000";
         public static string API_URL = IP + ":" + PORT + "/api/v1/";
         public static string URL_AUTH = "http://" + IP + ":" + PORT + "/auth/login";
         public static string URL_MOTIVOS = "http://" + API_URL + "motivos";
@@ -43,6 +44,11 @@ namespace DataLayer
         public static string URL_DETALLE_ENTRADA = "http://" + API_URL + "detalle_entrada";
         public static string URL_CLIENTE_NIT = "http://" + API_URL + "cliente/nit";
         public static string URL_PRODUCTO_EN_ALMACEN = "http://" + API_URL + "views/producto_almacen";
+        public static string URL_STATUS = "http://" + API_URL + "status";
+        public static string URL_VENTAS = "http://" + API_URL + "ventas";
+        public static string URL_SALIDA_PRODUCTO = "http://" + API_URL + "salida_producto";
+        public static string URL_DETALLE_SALIDA = "http://" + API_URL + "detalle_salida";
+        public static string URL_FACTURA = "http://" + API_URL + "factura";
 
         public static string ACTUAL_API_TOKEN = String.Empty;
 
@@ -50,7 +56,52 @@ namespace DataLayer
                 {
                     { "Authorization", ""}
                 };
-
+        public static void setIP(string ip)
+        {
+            IP = ip;
+            API_URL = IP + ":" + PORT + "/api/v1/";
+            URL_AUTH = "http://" + IP + ":" + PORT + "/auth/login";
+            URL_MOTIVOS = "http://" + API_URL + "motivos";
+            URL_CLIENTES = "http://" + API_URL + "clientes";
+            URL_NIVELES = "http://" + API_URL + "niveles";
+            URL_USUARIO = "http://" + API_URL + "users";
+            URL_USUARIO_NIVEL = "http://" + API_URL + "usuario-nivel";
+            URL_CONTACTOS = "http://" + API_URL + "contactos";
+            URL_CONTACTO_CORREO = "http://" + API_URL + "contactos_correo";
+            URL_CONTACTO_TELEFONO = "http://" + API_URL + "contactos_telefono";
+            URL_DEPARTAMENTO = "http://" + API_URL + "departamentos";
+            URL_LOCALIDAD = "http://" + API_URL + "localidades";
+            URL_CONTACTO_DIRECCION = "http://" + API_URL + "contactos_direccion";
+            URL_CONTACTOS_UNIFIED = "http://" + API_URL + "contactos_unified";
+            URL_ENTIDADES = "http://" + API_URL + "entidades";
+            URL_PROVEEDORES = "http://" + API_URL + "proveedores";
+            URL_UNIDAD_PRESENTACION = "http://" + API_URL + "unidad_presentacion";
+            URL_PRESENTACION_PRODUCTO = "http://" + API_URL + "presentacion_producto";
+            URL_PRODUCTOS = "http://" + API_URL + "productos";
+            URL_VI_PRODUCTOS = "http://" + API_URL + "views/producto_presentacion";
+            URL_PRODUCTO_ALMACEN = "http://" + API_URL + "producto_almacen";
+            URL_PRODUCTO_ALMACEN_PRODUCTO = "http://" + API_URL + "producto_almacen/producto";
+            URL_PRODUCTO_ALMACEN_ALMACEN = "http://" + API_URL + "producto_almacen/almacen";
+            URL_PRODUCTOS_BUSCAR = "http://" + API_URL + "productos/buscar";
+            URL_ALMACENES = "http://" + API_URL + "almacenes";
+            URL_CONTACTO_CORREO_BY_CONTACTO = "http://" + API_URL + "contactos_correo/contacto";
+            URL_CONTACTO_TELEFONO_BY_CONTACTO = "http://" + API_URL + "contactos_telefono/contacto";
+            URL_CONTACTO_DIRECCION_BY_CONTACTO = "http://" + API_URL + "contactos_direccion/contacto";
+            URL_LOCALIDAD_DEPARTAMENTO = "http://" + API_URL + "localidades/departamento";
+            URL_CONTACTO_CORREO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_correo";
+            URL_CONTACTO_TELEFONO_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_telefono";
+            URL_CONTACTO_DIRECCION_BY_ENTIDAD = "http://" + API_URL + "entidad/contacto_direccion";
+            URL_COMPRAS = "http://" + API_URL + "compras";
+            URL_DETALLE_ENTRADA = "http://" + API_URL + "detalle_entrada";
+            URL_CLIENTE_NIT = "http://" + API_URL + "cliente/nit";
+            URL_PRODUCTO_EN_ALMACEN = "http://" + API_URL + "views/producto_almacen";
+            URL_STATUS = "http://" + API_URL + "status";
+            URL_VENTAS = "http://" + API_URL + "ventas";
+            URL_SALIDA_PRODUCTO = "http://" + API_URL + "salida_producto";
+            URL_DETALLE_SALIDA = "http://" + API_URL + "detalle_salida";
+            URL_FACTURA = "http://" + API_URL + "factura";
+        }
+        
         #region Mensajes
         public const string MSJ_PASS_DEBIL = "La contraseña ingresada es muy débil, Intente:\n" +
             "- Aumentar más caracteres (8 es suficiente). O\n" +
@@ -63,6 +114,9 @@ namespace DataLayer
 
         public const string MSJ_ALMACEN_CONTIENE_PRODUCTOS = "El almacen que desea eliminar tiene productos registrados.\n" +
             "Debe disponer de todos los productos en almacen antes de poder eliminarlo.";
+        public const string MSJ_ERROR_CONEXION_API = "Error al conectarse con la Base de Datos.\n" +
+            "Pruebe cambiando la IP en el recuadro correspondiente.\n" +
+            "Si el problema persiste, póngase en contacto con el administrador.";
         #endregion
     }
 }

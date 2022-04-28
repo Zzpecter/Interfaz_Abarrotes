@@ -20,7 +20,6 @@ namespace UI
 
         private async void FrmUsuario_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViUsuarioNivel> usuarios = await DataLayer.Tasks.Usuario.listarUsuarioNivel();
             CreateDataSource(usuarios);
 
@@ -97,7 +96,7 @@ namespace UI
                             id_nivel = this.nivelSeleccionado.id_nivel,
                             login_usuario = tbLogin.Text,
                             password_usuario = tbPassword.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Usuario.insertar(usuario);
 
@@ -131,7 +130,7 @@ namespace UI
                             id_nivel = this.nivelSeleccionado.id_nivel,
                             login_usuario = tbLogin.Text,
                             password_usuario = tbPassword.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Usuario.actualizar(usuario, usuarioSeleccionado.id_entidad);
 

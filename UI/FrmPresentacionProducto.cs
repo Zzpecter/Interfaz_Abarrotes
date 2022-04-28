@@ -29,7 +29,6 @@ namespace UI
 
         private async void FrmPresentacionProducto_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViPresentacionUnidad> presentaciones = await DataLayer.Tasks.PresentacionProducto.listar();
             CreateDataSource(presentaciones);
 

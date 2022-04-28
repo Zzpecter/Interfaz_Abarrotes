@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Models
 {
-    internal class LoginUser
+    public class LoginUser
     {
         public string login_usuario { get; set; }
         public string password_usuario { get; set; }

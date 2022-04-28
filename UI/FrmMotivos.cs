@@ -25,7 +25,6 @@ namespace UI
 
         private async void FrmMotivos_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             List<DataLayer.Models.ViMotivo> motivos = await DataLayer.Tasks.Motivo.listar();
             CreateDataSource(motivos);
         }
@@ -71,7 +70,7 @@ namespace UI
                         DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo()
                         {
                             descripcion_motivo = tbMotivo.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Motivo.insertar(motivo);
 
@@ -91,7 +90,7 @@ namespace UI
                         DataLayer.Models.Motivo motivo = new DataLayer.Models.Motivo()
                         {
                             descripcion_motivo = tbMotivo.Text,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Motivo.actualizar(motivo, motivoSeleccionado.id_motivo);
 

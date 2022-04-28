@@ -70,6 +70,29 @@ namespace DataLayer.Tasks
             return JsonConvert.DeserializeObject<Models.ViUsuario>(responseText);
         }
 
+        public static async Task<List<Models.ViUsuario>> seleccionarPorLogin(string login_usuario)
+        {
+            string url = Globals.URL_USUARIO + "/login/" + login_usuario.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("usuario no encontrado"))
+                return new List<Models.ViUsuario>(); //devuelve lista vacia
+            try
+            {
+                return JsonConvert.DeserializeObject<List<Models.ViUsuario>>(responseText);
+            }
+            catch
+            {
+                return new List<Models.ViUsuario> { JsonConvert.DeserializeObject<Models.ViUsuario>(responseText) };
+            }
+        }
+
         public static async Task<int> eliminar(int idUsuario)
         {
             string url = Globals.URL_USUARIO + "/" + idUsuario.ToString();

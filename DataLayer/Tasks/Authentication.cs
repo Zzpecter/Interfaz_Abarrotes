@@ -5,24 +5,34 @@ namespace DataLayer.Tasks
 {
     public class Authentication
     {
-        public static async Task BuildAuthHeaders()
+        public static async Task<bool> TryApiConnection()
         {
-            if (DataLayer.Globals.ACTUAL_API_TOKEN == String.Empty)
-            {
-                await authenticateUser().ConfigureAwait(false);
-            }
+            var apiResponse = await RequestController.SendHttpRequest(
+                HttpMethod.Get, 
+                Globals.URL_STATUS, 
+                String.Empty, 
+                new Dictionary<string, string>());
+            string apiResponseText = await apiResponse.Content.ReadAsStringAsync();
+            if (apiResponseText.Contains("API conectada correctamente"))
+                return true;
+            return false;
         }
-        public static async Task authenticateUser()
+        public static async Task<bool> authenticateUser(LoginUser usuario)
         {
-            LoginUser loginUser = new LoginUser() { login_usuario = "admin", password_usuario = "admin" };
-            string jsonUser = JsonConvert.SerializeObject(loginUser);
-            var a = Globals.URL_AUTH;
+            string jsonUser = JsonConvert.SerializeObject(usuario);
             var loginResponse = await RequestController.SendHttpRequest(HttpMethod.Post, Globals.URL_AUTH, jsonUser, new Dictionary<string, string>());
             string loginResponseText = await loginResponse.Content.ReadAsStringAsync();
-            Token loginToken = JsonConvert.DeserializeObject<Token>(loginResponseText);
+            if (loginResponseText.Contains("access_token"))
+            {
+                Token loginToken = JsonConvert.DeserializeObject<Token>(loginResponseText);
 
-            DataLayer.Globals.ACTUAL_API_TOKEN = loginToken.access_token;
-            DataLayer.Globals.HTTP_HEADERS["Authorization"] = "Bearer " + loginToken.access_token;
+                Globals.ACTUAL_API_TOKEN = loginToken.access_token;
+                Globals.HTTP_HEADERS["Authorization"] = "Bearer " + loginToken.access_token;
+                return true;
+            }
+            return false;
+                
+            
         }
     }
 }

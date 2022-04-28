@@ -24,7 +24,6 @@ namespace UI
 
         private async void FrmCliente_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders();
             List<DataLayer.Models.ViCliente> clientes = await DataLayer.Tasks.Cliente.listar();
             CreateDataSource(clientes);
             dgvCliente.Rows[0].Selected = true;
@@ -68,7 +67,7 @@ namespace UI
                 case "agregar":
                     if (tbNombreRazonSocial.Text != String.Empty && tbNitCi.Text != String.Empty)
                     {
-                        DataLayer.Models.Cliente cliente = new DataLayer.Models.Cliente() { razon_social = tbNombreRazonSocial.Text, nit_ci = tbNitCi.Text, usuario_registro = "dev" };
+                        DataLayer.Models.Cliente cliente = new DataLayer.Models.Cliente() { razon_social = tbNombreRazonSocial.Text, nit_ci = tbNitCi.Text, usuario_registro = Sesion.login_usuario };
                         DataLayer.Models.ViCliente _cliente = await DataLayer.Tasks.Cliente.insertar(cliente);
 
                         if (_cliente.id_entidad != -1)
@@ -88,7 +87,7 @@ namespace UI
 
                         _cliente.razon_social = tbNombreRazonSocial.Text;
                         _cliente.nit_ci = tbNitCi.Text;
-                        _cliente.usuario_registro = "dev"; //esto vamos a sacar de los globales, donde registraremos el usuario activo
+                        _cliente.usuario_registro = Sesion.login_usuario;
                         int statusCode = await DataLayer.Tasks.Cliente.actualizar(_cliente, clienteSeleccionado.id_entidad);
 
                         if (statusCode == 200)

@@ -29,8 +29,6 @@ namespace UI
 
         private async void FrmProductos_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
-
             List<DataLayer.Models.ViProductoPresentacionUnidad> productos = await DataLayer.Tasks.Producto.listar();
             CreateDataSource(productos);
 
@@ -45,7 +43,7 @@ namespace UI
                 DataLayer.ComboboxItem cmbBoxItem = new DataLayer.ComboboxItem()
                 {
                     ID = presentacion.id_presentacion_producto,
-                    Text = presentacion.nombre_presentacion
+                    Text = presentacion.nombre_presentacion + " - " + presentacion.nombre_medida
                 };
                 cmbPresentaciones.Items.Add(cmbBoxItem);
                 this.cmbBoxUnidadesItems.Add(cmbBoxItem);
@@ -108,12 +106,11 @@ namespace UI
                             codigo = tbCodigoProducto.Text,
                             precio_compra = tbPrecioCompra.Value,
                             precio_venta = tbPrecioVenta.Value,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
-                        int statusCode = await DataLayer.Tasks.Producto.insertar(producto);
+                        DataLayer.Models.Producto productoInsertado = await DataLayer.Tasks.Producto.insertar(producto);
 
-                        if (statusCode == 201)
-                            RefreshData();
+                        RefreshData();
                         formState = "init";
                         ChangeState();
                     }
@@ -130,7 +127,7 @@ namespace UI
                             codigo = tbCodigoProducto.Text,
                             precio_compra = tbPrecioCompra.Value,
                             precio_venta = tbPrecioVenta.Value,
-                            usuario_registro = "dev" //TODO cambiar cuando exista login.
+                            usuario_registro = Sesion.login_usuario
                         };
                         int statusCode = await DataLayer.Tasks.Producto.actualizar(producto, productoSeleccionado.id_producto);
 

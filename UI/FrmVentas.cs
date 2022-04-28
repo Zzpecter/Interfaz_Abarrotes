@@ -38,7 +38,6 @@ namespace UI
 
         private async void FrmVentas_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
             this.tbBarcode.Select();
         }
         #endregion 
@@ -123,10 +122,83 @@ namespace UI
         }
         #endregion
 
-        private void bGuardar_Click(object sender, EventArgs e)
+        private async void bGuardar_Click(object sender, EventArgs e)
         {
             //Controlar si el cliente fue insertado/actualizado y la info de los TB es correcta.
+            if (!tbNombreCliente.ReadOnly)
+            {
+                //TODO insertar/actualizar
+            }
+            int numProductos = 0;
 
+            //insertar salida_producto para el id
+            DataLayer.Models.SalidaProducto nuevaSalida = await DataLayer.Tasks.SalidaProducto.insertar();
+
+            //TODO: Implementar codigo para generar datos de la factura
+            DataLayer.Models.Factura factura = new DataLayer.Models.Factura()
+            {
+                codigo_control = "N/A",
+                datos_codigo_QR = "Sistema no Implementado",
+                usuario_registro = Sesion.login_usuario
+            };
+
+            DataLayer.Models.Factura _factura = await DataLayer.Tasks.Factura.insertar(factura);
+
+            //insertar venta
+            DataLayer.Models.Venta venta = new DataLayer.Models.Venta()
+            {
+                id_salida_producto = nuevaSalida.id_salida_producto,
+                id_usuario = Sesion.id_entidad,
+                id_cliente = clienteSeleccionado.id_entidad,
+                id_factura = _factura.id_factura,
+                monto_total = this.total,
+                fecha = DateTime.Now,
+                usuario_registro = Sesion.login_usuario
+            };
+            DataLayer.Models.ViVenta _venta = await DataLayer.Tasks.Venta.insertar(venta);
+
+            //iterar linea por linea del dgvVenta
+            foreach (DataRow row in dtVenta.Rows)
+            {
+                int id_producto = Convert.ToInt32(row[0].ToString());
+                int cantidad = Convert.ToInt32(row[6].ToString());
+                decimal precio_venta = Convert.ToDecimal(row[3].ToString());
+
+                //por cada linea:
+                // actualizar el stock
+                DataLayer.Models.ViProductoAlmacen _productoAlmacen = await DataLayer.Tasks.ProductoAlmacen.seleccionarProducto(id_producto);
+
+                decimal stock_restante = _productoAlmacen.stock_actual - cantidad;
+                if (stock_restante < 0)
+                    stock_restante = 0;
+
+                DataLayer.Models.ProductoAlmacen productoAlmacenActualizado = new DataLayer.Models.ProductoAlmacen()
+                {
+                    id_producto = id_producto,
+                    id_almacen = _productoAlmacen.id_almacen,
+                    stock_actual = stock_restante,
+                    usuario_registro = Sesion.login_usuario
+                };
+                int statusCode = await DataLayer.Tasks.ProductoAlmacen.actualizar(productoAlmacenActualizado, _productoAlmacen.id_producto_almacen);
+                
+
+                //registrar detalle_salida
+                DataLayer.Models.DetalleSalida detalleSalida = new DataLayer.Models.DetalleSalida()
+                {
+                    id_salida_producto = nuevaSalida.id_salida_producto,
+                    id_producto = id_producto,
+                    cantidad = cantidad,
+                    precio_unidad = precio_venta,
+                    usuario_registro = Sesion.login_usuario
+                };
+                int status = await DataLayer.Tasks.DetalleSalida.insertar(detalleSalida);
+                numProductos++;
+            }
+            MessageBox.Show("Venta registrada.\nSe registraron " + numProductos.ToString() + " producto(s).", "Venta Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            bGuardar.Enabled = false;
+            dtVenta.Clear();
+            dgvVenta.Refresh();
+            CalcularTotal();
         }
 
         private void bBuscar_Click(object sender, EventArgs e)
@@ -153,7 +225,19 @@ namespace UI
 
         private void bNuevoProducto_Click(object sender, EventArgs e)
         {
-            //Mostrar FrmCompactProductoCrear
+            FrmCompactProductoCrear frm = new FrmCompactProductoCrear();
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.productoSeleccionado = frm.nuevoProducto;
+
+                tbNombreProducto.Text = this.productoSeleccionado.nombre;
+                tbPresentacion.Text = this.productoSeleccionado.presentacion;
+                tbUnidades.Text = this.productoSeleccionado.unidades;
+                tbPrecioVenta.Value = this.productoSeleccionado.precio_venta;
+
+                bAgregar.Enabled = true;
+            }
         }
 
         private void bAgregar_Click(object sender, EventArgs e)
@@ -183,9 +267,11 @@ namespace UI
 
                 bAgregar.Enabled = false;
                 this.productoSeleccionado = new DataLayer.Models.ViProductoEnAlmacen() { id_producto = -1 };
+                tbNombreProducto.Text = String.Empty;
+                tbPresentacion.Text = String.Empty;
+                tbUnidades.Text = String.Empty;
+                tbPrecioVenta.Value = tbPrecioVenta.Minimum;
             }
-            //Agregar productoSeleccionado a productosVenta
-            
         }
 
         private void CreateDataSource(List<DataLayer.Models.ViProductoVenta> productos)
@@ -250,6 +336,16 @@ namespace UI
             }
 
             lblTotal.Text = "Total: " + total.ToString() + " Bs.";  
+        }
+
+        private void CalcularTotal()
+        {
+            this.total = 0;
+            foreach (DataRow row in dtVenta.Rows)
+            {
+                this.total += Convert.ToDecimal(row[7]);
+            }
+            lblTotal.Text = "Total: " + total.ToString() + " Bs.";
         }
     }
 }

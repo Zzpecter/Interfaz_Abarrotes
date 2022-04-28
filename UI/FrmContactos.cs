@@ -36,7 +36,7 @@ namespace UI
 
         private async void FrmContactos_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
+            //await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
 
             BuscarEntidad();
 
@@ -157,14 +157,14 @@ namespace UI
                             DataLayer.Models.Contacto contacto_1 = new DataLayer.Models.Contacto()
                             {
                                 id_entidad = this.id_entidad,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
-                            };
+                                usuario_registro = Sesion.login_usuario
+                    };
                             contacto_1 = await DataLayer.Tasks.Contacto.insertar(contacto_1);
                             DataLayer.Models.ContactoCorreo contactoCorreo = new DataLayer.Models.ContactoCorreo()
                             {
                                 id_contacto = contacto_1.id_contacto,
                                 correo = this.tbCorreoCodigoCalle.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoCorreo.insertar(contactoCorreo);
 
@@ -185,7 +185,7 @@ namespace UI
                             DataLayer.Models.Contacto contacto_2 = new DataLayer.Models.Contacto()
                             {
                                 id_entidad = this.id_entidad,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             contacto_2 = await DataLayer.Tasks.Contacto.insertar(contacto_2);
                             DataLayer.Models.ContactoTelefono contactoTelefono = new DataLayer.Models.ContactoTelefono()
@@ -193,7 +193,7 @@ namespace UI
                                 id_contacto = contacto_2.id_contacto,
                                 codigo_pais = this.tbCorreoCodigoCalle.Text,
                                 numero = this.tbNumeros.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoTelefono.insertar(contactoTelefono);
 
@@ -213,7 +213,7 @@ namespace UI
                             DataLayer.Models.Contacto contacto_3 = new DataLayer.Models.Contacto()
                             {
                                 id_entidad = this.id_entidad,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             contacto_3 = await DataLayer.Tasks.Contacto.insertar(contacto_3);
 
@@ -225,7 +225,7 @@ namespace UI
                                 numero_casa = this.tbNumeros.Text,
                                 zona = tbZona.Text,
                                 detalles = tbDetalles.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoDireccion.insertar(contactoDireccion);
 
@@ -251,7 +251,7 @@ namespace UI
                             {
                                 id_contacto = this.contactoCorreoSeleccionado.id_contacto,
                                 correo = this.tbCorreoCodigoCalle.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoCorreo.actualizar(contactoCorreo, contactoCorreoSeleccionado.id_contacto_correo);
 
@@ -274,7 +274,7 @@ namespace UI
                                 id_contacto = this.contactoTelefonoSeleccionado.id_contacto,
                                 codigo_pais = this.tbCorreoCodigoCalle.Text,
                                 numero = this.tbNumeros.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoTelefono.actualizar(contactoTelefono, contactoTelefonoSeleccionado.id_contacto_telefono);
 
@@ -299,7 +299,7 @@ namespace UI
                                 numero_casa = this.tbNumeros.Text,
                                 zona = tbZona.Text,
                                 detalles = tbDetalles.Text,
-                                usuario_registro = "dev" //TODO cambiar cuando exista login.
+                                usuario_registro = Sesion.login_usuario
                             };
                             statusCode = await DataLayer.Tasks.ContactoDireccion.actualizar(contactoDireccion, contactoDireccionSeleccionado.id_contacto_direccion);
 

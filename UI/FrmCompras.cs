@@ -36,8 +36,6 @@ namespace UI
 
         private async void FrmCompras_Load(object sender, EventArgs e)
         {
-            await DataLayer.Tasks.Authentication.BuildAuthHeaders(); // Esto se hará en el login, cuando exista.
-
             List<DataLayer.Models.ViProductoPresentacionUnidad> productos = await DataLayer.Tasks.Producto.listar();
             CreateDataSource(productos);
 
@@ -180,7 +178,7 @@ namespace UI
                 id_proveedor = proveedorSeleccionado.id_entidad,
                 monto_total = this.total,
                 fecha = DateTime.Now,
-                usuario_registro = "dev"
+                usuario_registro = Sesion.login_usuario
             };
 
             DataLayer.Models.ViCompra _compra = await DataLayer.Tasks.Compra.insertar(compra);
