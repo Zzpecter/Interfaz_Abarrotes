@@ -50,7 +50,10 @@ namespace UI
 
         private void bPerfil_Click(object sender, EventArgs e)
         {
-            //TODO
+            this.Hide();
+            FrmPerfil frm = new FrmPerfil();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
 
         private void bUsuarios_Click(object sender, EventArgs e)
@@ -120,6 +123,11 @@ namespace UI
         private void bSalir_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FrmMenuPrincipal_Load(object sender, EventArgs e)
+        {
+            lblUsuarioActual.Text = "Bienvenid@\n" + Sesion.login_usuario.ToUpperInvariant() +"!!";
         }
     }
 }

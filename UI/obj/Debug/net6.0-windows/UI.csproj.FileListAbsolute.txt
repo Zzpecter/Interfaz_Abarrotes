@@ -94,3 +94,5 @@ C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-wind
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\bin\Debug\net6.0-windows\UI.dll.config
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmMenuPrincipal.resources
 C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCompactProductoCrear.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmCambiarPass.resources
+C:\Users\renev\Documents\Projects\ab\Interfaz_Abarrotes\UI\obj\Debug\net6.0-windows\UI.FrmPerfil.resources

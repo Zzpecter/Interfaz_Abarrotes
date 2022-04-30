@@ -37,6 +37,8 @@ namespace UI
                     Sesion.login_usuario = usuarioAutenticado.login_usuario;
                     Sesion.id_nivel = usuarioAutenticado.id_nivel;
                     Sesion.nivel = nivel.nivel;
+                    Sesion.password_usuario = tbPassword.Text;
+                    Sesion.horaConexion = DateTime.Now;
 
 
                     this.Hide();

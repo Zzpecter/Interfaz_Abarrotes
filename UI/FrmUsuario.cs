@@ -78,7 +78,7 @@ namespace UI
 
                     // chekeamos fuerza del password
                     passScore = DataLayer.Helpers.CheckStrength(tbPassword.Text);
-                    if(passScore == DataLayer.PasswordScore.Blank || passScore == DataLayer.PasswordScore.VeryWeak)
+                    if(passScore == DataLayer.PasswordScore.Blank || passScore == DataLayer.PasswordScore.TooShort || passScore == DataLayer.PasswordScore.VeryWeak)
                     {
                         MessageBox.Show(DataLayer.Globals.MSJ_PASS_DEBIL, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         cumpleCondiciones = false;

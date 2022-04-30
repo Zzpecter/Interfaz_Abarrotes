@@ -48,6 +48,7 @@
             this.bAlmacenes = new System.Windows.Forms.Button();
             this.bSalir = new System.Windows.Forms.Button();
             this.bPerfil = new System.Windows.Forms.Button();
+            this.lblUsuarioActual = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -256,7 +257,7 @@
             // 
             // bPerfil
             // 
-            this.bPerfil.Location = new System.Drawing.Point(746, 56);
+            this.bPerfil.Location = new System.Drawing.Point(746, 143);
             this.bPerfil.Name = "bPerfil";
             this.bPerfil.Size = new System.Drawing.Size(337, 57);
             this.bPerfil.TabIndex = 4;
@@ -264,11 +265,24 @@
             this.bPerfil.UseVisualStyleBackColor = true;
             this.bPerfil.Click += new System.EventHandler(this.bPerfil_Click);
             // 
+            // lblUsuarioActual
+            // 
+            this.lblUsuarioActual.AutoSize = true;
+            this.lblUsuarioActual.Font = new System.Drawing.Font("Cascadia Code SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUsuarioActual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblUsuarioActual.Location = new System.Drawing.Point(798, 38);
+            this.lblUsuarioActual.Name = "lblUsuarioActual";
+            this.lblUsuarioActual.Size = new System.Drawing.Size(215, 40);
+            this.lblUsuarioActual.TabIndex = 61;
+            this.lblUsuarioActual.Text = "Bienvenid@:";
+            this.lblUsuarioActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrmMenuPrincipal
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1101, 585);
+            this.Controls.Add(this.lblUsuarioActual);
             this.Controls.Add(this.bPerfil);
             this.Controls.Add(this.bSalir);
             this.Controls.Add(this.groupBox4);
@@ -283,11 +297,13 @@
             this.Name = "FrmMenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Menú Principal";
+            this.Load += new System.EventHandler(this.FrmMenuPrincipal_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -312,5 +328,6 @@
         private Button bLocalidades;
         private Button bSalir;
         private Button bPerfil;
+        private Label lblUsuarioActual;
     }
 }

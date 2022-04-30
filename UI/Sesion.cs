@@ -12,5 +12,7 @@ namespace UI
         public static int id_nivel = 1;
         public static string login_usuario = "dev";
         public static string nivel = "Administrador";
+        public static string password_usuario;
+        public static DateTime horaConexion = new DateTime();
     }
 }
