@@ -15,7 +15,13 @@ namespace DataLayer.Models
         public decimal monto_total { get; set; }
         public DateTime fecha { get; set; }
     }
-
+    public class ViVentaCliente : ViVenta
+    {
+        public int id_venta { get; set; }
+        public string usuario { get; set; }
+        public string cliente { get; set; }
+        public string nit_ci { get; set; }
+    }
     public class Venta : ViVenta
     {
         public string usuario_registro { get; set; }

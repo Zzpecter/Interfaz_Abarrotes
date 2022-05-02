@@ -67,5 +67,64 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
+        public static async Task<List<Models.ViVentaCliente>> listarVentaCliente()
+        { 
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                Globals.URL_VENTA_CLIENTE,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("venta no encontrada"))
+                return new List<Models.ViVentaCliente>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViVentaCliente>>(responseText);
+        }
+
+        public static async Task<List<Models.ViVentaCliente>> buscarPorFecha(DateTime desde, DateTime hasta)
+        {
+            string url = Globals.URL_VENTA_CLIENTE + "/" + desde.ToString("MM-dd-yyyy") + "/" + hasta.ToString("MM-dd-yyyy");
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("venta no encontrada"))
+                return new List<Models.ViVentaCliente>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViVentaCliente>>(responseText);
+        }
+
+        public static async Task<List<Models.ViVentaCliente>> buscarPorCliente(string query)
+        {
+            string url = Globals.URL_VENTA_CLIENTE + "/" + query;
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("venta no encontrada"))
+                return new List<Models.ViVentaCliente>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViVentaCliente>>(responseText);
+        }
+
+
+        public static async Task<Models.ViVentaCliente> seleccionarVentaCliente(int idVenta)
+        {
+            string url = Globals.URL_VENTA_CLIENTE + "/" + idVenta.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("venta no encontrada"))
+                return new Models.ViVentaCliente() { id_salida_producto = -1}; //devuelve lista vacia
+            return JsonConvert.DeserializeObject<Models.ViVentaCliente>(responseText);
+        }
     }
 }

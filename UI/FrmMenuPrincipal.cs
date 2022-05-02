@@ -35,7 +35,10 @@ namespace UI
 
         private void bListadoVentas_Click(object sender, EventArgs e)
         {
-            //TODO
+            this.Hide();
+            FrmListadoVentas frm = new FrmListadoVentas();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
 
         private void bListadoCompras_Click(object sender, EventArgs e)
