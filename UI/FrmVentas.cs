@@ -28,7 +28,6 @@ namespace UI
 
         private DateTime _lastKeystroke = new DateTime(0);
         private List<char> _barcode = new List<char>();
-        List<TimeSpan> keySpans = new List<TimeSpan>();
         public FrmVentas()
         {
             InitializeComponent();
@@ -47,7 +46,6 @@ namespace UI
         {
             // borrar barcode si hay intermitencia de mas de 100 ms
             TimeSpan elapsed = (DateTime.Now - _lastKeystroke);
-            keySpans.Add(elapsed);
             if (elapsed.TotalMilliseconds > 100)
                 _barcode.Clear();
 
@@ -198,7 +196,6 @@ namespace UI
             bGuardar.Enabled = false;
             dtVenta.Clear();
             dgvVenta.Refresh();
-            CalcularTotal();
         }
 
         private void bBuscar_Click(object sender, EventArgs e)
@@ -256,6 +253,7 @@ namespace UI
                     codigo = this.productoSeleccionado.codigo,
                     precio_compra = this.productoSeleccionado.precio_compra,
                     precio_venta = this.productoSeleccionado.precio_venta,
+                    permite_cantidad_fraccionada = this.productoSeleccionado.permite_cantidad_fraccionada,
                     presentacion = this.productoSeleccionado.presentacion,
                     unidades = this.productoSeleccionado.unidades,
                     multiplicador_kg = this.productoSeleccionado.multiplicador_kg,
@@ -336,16 +334,6 @@ namespace UI
             }
 
             lblTotal.Text = "Total: " + total.ToString() + " Bs.";  
-        }
-
-        private void CalcularTotal()
-        {
-            this.total = 0;
-            foreach (DataRow row in dtVenta.Rows)
-            {
-                this.total += Convert.ToDecimal(row[7]);
-            }
-            lblTotal.Text = "Total: " + total.ToString() + " Bs.";
         }
     }
 }

@@ -43,6 +43,7 @@
             this.bNuevoProducto = new System.Windows.Forms.Button();
             this.bBuscar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tbBarcode = new System.Windows.Forms.TextBox();
             this.bNuevoCliente = new System.Windows.Forms.Button();
             this.tbNombreCliente = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -55,7 +56,7 @@
             this.bCambiarCantidad = new System.Windows.Forms.Button();
             this.bQuitar = new System.Windows.Forms.Button();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
-            this.tbBarcode = new System.Windows.Forms.TextBox();
+            this.bVolver = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPrecioVenta)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -225,6 +226,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Información de Cliente";
             // 
+            // tbBarcode
+            // 
+            this.tbBarcode.Location = new System.Drawing.Point(356, 0);
+            this.tbBarcode.Name = "tbBarcode";
+            this.tbBarcode.Size = new System.Drawing.Size(35, 28);
+            this.tbBarcode.TabIndex = 40;
+            this.tbBarcode.Visible = false;
+            // 
             // bNuevoCliente
             // 
             this.bNuevoCliente.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -288,6 +297,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.bVolver);
             this.groupBox4.Controls.Add(this.lblTotal);
             this.groupBox4.Controls.Add(this.bGuardar);
             this.groupBox4.Controls.Add(this.bCambiarCantidad);
@@ -332,7 +342,7 @@
             this.bCambiarCantidad.Enabled = false;
             this.bCambiarCantidad.Image = global::UI.Properties.Resources.refresh;
             this.bCambiarCantidad.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bCambiarCantidad.Location = new System.Drawing.Point(7, 27);
+            this.bCambiarCantidad.Location = new System.Drawing.Point(225, 27);
             this.bCambiarCantidad.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bCambiarCantidad.Name = "bCambiarCantidad";
             this.bCambiarCantidad.Size = new System.Drawing.Size(137, 64);
@@ -347,7 +357,7 @@
             this.bQuitar.Enabled = false;
             this.bQuitar.Image = global::UI.Properties.Resources.cancelar;
             this.bQuitar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bQuitar.Location = new System.Drawing.Point(152, 27);
+            this.bQuitar.Location = new System.Drawing.Point(370, 27);
             this.bQuitar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.bQuitar.Name = "bQuitar";
             this.bQuitar.Size = new System.Drawing.Size(137, 64);
@@ -378,19 +388,25 @@
             this.dgvVenta.Size = new System.Drawing.Size(1062, 176);
             this.dgvVenta.TabIndex = 35;
             // 
-            // tbBarcode
+            // bVolver
             // 
-            this.tbBarcode.Location = new System.Drawing.Point(356, 0);
-            this.tbBarcode.Name = "tbBarcode";
-            this.tbBarcode.Size = new System.Drawing.Size(35, 28);
-            this.tbBarcode.TabIndex = 40;
-            this.tbBarcode.Visible = false;
+            this.bVolver.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bVolver.Image = global::UI.Properties.Resources.volver;
+            this.bVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bVolver.Location = new System.Drawing.Point(7, 27);
+            this.bVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bVolver.Name = "bVolver";
+            this.bVolver.Size = new System.Drawing.Size(136, 64);
+            this.bVolver.TabIndex = 47;
+            this.bVolver.Text = "Volver";
+            this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bVolver.UseVisualStyleBackColor = false;
             // 
             // FrmVentas
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1100, 642);
+            this.ClientSize = new System.Drawing.Size(1100, 627);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
@@ -447,5 +463,6 @@
         private Button bGuardar;
         private NumericUpDown tbPrecioVenta;
         private TextBox tbBarcode;
+        private Button bVolver;
     }
 }

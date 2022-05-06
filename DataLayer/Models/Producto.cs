@@ -43,4 +43,9 @@ namespace DataLayer.Models
         public decimal sub_total { get; set; }
 
     }
+    public class ViProductoCompra : ViProductoPresentacionUnidad
+    {
+        public decimal cantidad { get; set; }
+        public decimal sub_total { get; set; }
+    }
 }

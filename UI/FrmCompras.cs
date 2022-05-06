@@ -17,7 +17,7 @@ namespace UI
         private DataTable dtDatos;
         private DataTable dtCompraActual;
         private DataLayer.Models.ViProductoPresentacionUnidad productoSeleccionado;
-        private DataLayer.Models.ViProductoPresentacionUnidad productoCarritoSeleccionado;
+        private List<DataLayer.Models.ViProductoCompra> productosCompra;
         private List<DataLayer.ComboboxItem> cmbBoxProveedoresItems;
         private DataLayer.Models.ViProveedor proveedorSeleccionado;
         private List<DataLayer.Models.ViProveedor> proveedores;
@@ -26,146 +26,151 @@ namespace UI
         private List<DataLayer.Models.ViAlmacen> almacenes;
         private decimal total;
 
+        private DateTime _lastKeystroke = new DateTime(0);
+        private List<char> _barcode = new List<char>();
+
         private bool loading;
         public FrmCompras()
         {
             InitializeComponent();
+            this.proveedorSeleccionado = new DataLayer.Models.ViProveedor() { id_entidad = -1 };
+            this.almacenSeleccionado = new DataLayer.Models.ViAlmacen() { id_almacen = -1 };
             this.cmbBoxProveedoresItems = new List<DataLayer.ComboboxItem>();
             this.cmbBoxAlmacenesItems = new List<DataLayer.ComboboxItem>();
+            this.productosCompra = new List<DataLayer.Models.ViProductoCompra>();
         }
 
         private async void FrmCompras_Load(object sender, EventArgs e)
         {
-            List<DataLayer.Models.ViProductoPresentacionUnidad> productos = await DataLayer.Tasks.Producto.listar();
-            CreateDataSource(productos);
-
-            tbBuscar.Select();
-
-            //cargar proveedores
-            proveedores = await DataLayer.Tasks.Proveedor.listar();
-
-            cmbProveedores.Items.Clear();
-            cmbProveedores.Items.Add("Seleccione un proveedor...");
-
-            foreach (DataLayer.Models.ViProveedor proveedor in proveedores)
-            {
-                DataLayer.ComboboxItem cmbBoxItem = new DataLayer.ComboboxItem()
-                {
-                    ID = proveedor.id_entidad,
-                    Text = proveedor.nombre
-                };
-                cmbProveedores.Items.Add(cmbBoxItem);
-                this.cmbBoxProveedoresItems.Add(cmbBoxItem);
-            }
-
-            cmbProveedores.SelectedIndex = 0;
-
-            //cargar almacenes
-            almacenes = await DataLayer.Tasks.Almacen.listar();
-
-            cmbAlmacenDestino.Items.Clear();
-            cmbAlmacenDestino.Items.Add("Seleccione un almacen...");
-
-            foreach (DataLayer.Models.ViAlmacen almacen in almacenes)
-            {
-                DataLayer.ComboboxItem cmbBoxItem = new DataLayer.ComboboxItem()
-                {
-                    ID = almacen.id_almacen,
-                    Text = almacen.descripcion
-                };
-                cmbAlmacenDestino.Items.Add(cmbBoxItem);
-                this.cmbBoxAlmacenesItems.Add(cmbBoxItem);
-            }
-
-            cmbAlmacenDestino.SelectedIndex = 0;
+            CargarAlmacenes();
+            CargarProveedores();
+            this.tbBarcode.Select();
         }
         #endregion
 
         #region Botones y Controles
 
+        private async void FrmCompras_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // borrar barcode si hay intermitencia de mas de 100 ms
+            TimeSpan elapsed = (DateTime.Now - _lastKeystroke);
+            if (elapsed.TotalMilliseconds > 100)
+                _barcode.Clear();
+
+            // agregar tecla y marca de tiempo
+            _barcode.Add(e.KeyChar);
+            _lastKeystroke = DateTime.Now;
+
+            // procesar el codigo de barras
+            if (e.KeyChar == 13 && _barcode.Count > 4)
+            {
+                string barcode = new String(_barcode.ToArray());
+                barcode = barcode.Remove(barcode.Length - 1);
+                barcode = barcode.Remove(barcode.Length - 1);
+                List<DataLayer.Models.ViProductoEnAlmacen> productos = await DataLayer.Tasks.ProductoAlmacen.buscarProductoEnAlmacen(barcode);
+
+                if (productos.Count > 0)
+                {
+                    this.productoSeleccionado = productos[0];
+                    //Mostrar detalles
+                    this.tbNombreProducto.Text = productoSeleccionado.nombre;
+                    this.tbPresentacion.Text = productoSeleccionado.presentacion;
+                    this.tbUnidades.Text = productoSeleccionado.unidades;
+                    this.tbPrecioCompra.Value = productoSeleccionado.precio_compra;
+
+                    bAgregar.Enabled = true;
+                }
+                _barcode.Clear();
+            }
+        }
+
+        private void bBuscar_Click(object sender, EventArgs e)
+        {
+            bool IsMouse = (e is MouseEventArgs);
+            if (IsMouse)
+            {
+                //Mostrar FrmBuscarProductos, que devuelva el producto seleccionado
+                FrmCompactProductoBuscar frm = new FrmCompactProductoBuscar();
+                var result = frm.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    this.productoSeleccionado = frm.productoSeleccionado;
+
+                    tbNombreProducto.Text = this.productoSeleccionado.nombre;
+                    tbPresentacion.Text = this.productoSeleccionado.presentacion;
+                    tbUnidades.Text = this.productoSeleccionado.unidades;
+                    tbPrecioCompra.Value = this.productoSeleccionado.precio_compra;
+
+                    bAgregar.Enabled = true;
+                }
+            }
+        }
+
+        private void bNuevoProducto_Click(object sender, EventArgs e)
+        {
+            FrmCompactProductoCrear frm = new FrmCompactProductoCrear();
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.productoSeleccionado = frm.nuevoProducto;
+
+                tbNombreProducto.Text = this.productoSeleccionado.nombre;
+                tbPresentacion.Text = this.productoSeleccionado.presentacion;
+                tbUnidades.Text = this.productoSeleccionado.unidades;
+                tbPrecioCompra.Value = this.productoSeleccionado.precio_compra;
+
+                bAgregar.Enabled = true;
+            }
+        }
+
         private void bAgregar_Click(object sender, EventArgs e)
         {
-            this.AgregarProductoAlCarrito();
-        }
-
-        private void bQuitar_Click(object sender, EventArgs e)
-        {
-            if (Convert.ToDecimal(dgvCompraActual.SelectedRows[0].Cells[8].Value) <= tbCantidad.Value)
+            FrmSelectorCantidad frm = new FrmSelectorCantidad(this.productoSeleccionado.permite_cantidad_fraccionada);
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                foreach (DataRow row in dtCompraActual.Rows)
+                DataLayer.Models.ViProductoCompra producto_compra = new DataLayer.Models.ViProductoCompra()
                 {
-                    if (Convert.ToInt32(row[0]) == productoCarritoSeleccionado.id_producto)
-                    {
-                        row.Delete();
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                foreach (DataRow row in dtCompraActual.Rows)
-                {
-                    if (Convert.ToInt32(row[0]) == productoCarritoSeleccionado.id_producto)
-                    {
-                        row["cantidad"] = Convert.ToInt32(row["cantidad"]) - tbCantidad.Value;
-                        break;
-                    }
-                }
-            }
-            this.CalcularTotal();
-        }
+                    id_producto = this.productoSeleccionado.id_producto,
+                    id_presentacion_producto = this.productoSeleccionado.id_presentacion_producto,
+                    id_unidad_presentacion = this.productoSeleccionado.id_unidad_presentacion,
+                    nombre = this.productoSeleccionado.nombre,
+                    codigo = this.productoSeleccionado.codigo,
+                    precio_compra = this.productoSeleccionado.precio_compra,
+                    precio_venta = this.productoSeleccionado.precio_venta,
+                    presentacion = this.productoSeleccionado.presentacion,
+                    permite_cantidad_fraccionada = this.productoSeleccionado.permite_cantidad_fraccionada,
+                    unidades = this.productoSeleccionado.unidades,
+                    multiplicador_kg = this.productoSeleccionado.multiplicador_kg,
+                    cantidad = frm.cantidad,
+                    sub_total = frm.cantidad * this.productoSeleccionado.precio_compra
+                };
+                this.productosCompra.Add(producto_compra);
+                CreateDataSource(productosCompra);
 
-        private async void dgvProductos_SelectionChanged(object sender, EventArgs e)
-        {
-            if (this.loading == false && dgvProductos.SelectedRows.Count == 1)
-            {
-                int idProductoSeleccionado = Convert.ToInt32(dgvProductos.SelectedRows[0].Cells[0].Value);
-                this.productoSeleccionado = await DataLayer.Tasks.Producto.seleccionarPresentacionUnidad(idProductoSeleccionado);
-                bAgregar.Enabled = true;
-                bQuitar.Enabled = false;
-                this.dgvCompraActual.ClearSelection();
-                tbCantidad.Value = 1;
-                tbPrecio.Enabled = true;
-                tbPrecio.Value = this.productoSeleccionado.precio_compra;
-            }
-        }
-
-        private async void dgvCompraActual_SelectionChanged(object sender, EventArgs e)
-        {
-            if (this.loading == false && dgvCompraActual.SelectedRows.Count == 1)
-            {
-                int idProductoSeleccionado = Convert.ToInt32(dgvCompraActual.SelectedRows[0].Cells[0].Value);
-                this.productoCarritoSeleccionado = await DataLayer.Tasks.Producto.seleccionarPresentacionUnidad(idProductoSeleccionado);
-                bQuitar.Enabled = true;
                 bAgregar.Enabled = false;
-                tbPrecio.Enabled = false;
-                this.dgvProductos.ClearSelection();
-                tbCantidad.Value = Convert.ToInt32(dgvCompraActual.SelectedRows[0].Cells[8].Value);
+                this.productoSeleccionado = new DataLayer.Models.ViProductoEnAlmacen() { id_producto = -1 };
+                tbNombreProducto.Text = String.Empty;
+                tbPresentacion.Text = String.Empty;
+                tbUnidades.Text = String.Empty;
+                tbPrecioCompra.Value = tbPrecioCompra.Minimum;
             }
         }
 
-        private async void tbBuscar_TextChanged(object sender, EventArgs e)
+        private void bEditarAlmacenes_Click(object sender, EventArgs e)
         {
-            if (!loading && tbBuscar.Text != String.Empty)
-            {
-                bReestablecer.Enabled = true;
-                List<DataLayer.Models.ViProductoPresentacionUnidad> productos = await DataLayer.Tasks.Producto.buscar(tbBuscar.Text);
-                if (productos.Count > 0)
-                    CreateDataSource(productos);
-                else
-                {
-                    dgvProductos.DataSource = null;
-                }
-            }
+            FrmCompactAlmacenInsertar frm = new FrmCompactAlmacenInsertar();
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+                CargarAlmacenes();
         }
 
-        private async void bReestablecer_Click(object sender, EventArgs e)
+        private void bEditarProveedores_Click(object sender, EventArgs e)
         {
-            tbBuscar.Text = String.Empty;
-            List<DataLayer.Models.ViProductoPresentacionUnidad> productos = await DataLayer.Tasks.Producto.listar();
-            CreateDataSource(productos);
-
-            tbBuscar.Select();
+            FrmCompactProveedorInsertar frm = new FrmCompactProveedorInsertar();
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+                CargarProveedores();
         }
 
         private async void bGuardar_Click(object sender, EventArgs e)
@@ -231,8 +236,7 @@ namespace UI
             }
             MessageBox.Show("Compra registrada.\nSe registraron " + numProductos.ToString() + " producto(s).", "Compra Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             dtCompraActual.Clear();
-            dgvCompraActual.Refresh();
-            CalcularTotal();
+            dgvCompra.Refresh();
         }
 
         private void cmbProveedores_SelectedIndexChanged(object sender, EventArgs e)
@@ -243,13 +247,6 @@ namespace UI
                 foreach (DataLayer.Models.ViProveedor proveedor in this.proveedores)
                     if (proveedor.id_entidad == selectedItem.ID)
                         this.proveedorSeleccionado = proveedor;
-                if (cmbAlmacenDestino.SelectedIndex > 0 && dtCompraActual.Rows.Count > 0)
-                    bGuardar.Enabled = true;
-            }
-            else if (cmbProveedores.SelectedIndex == 0)
-            {
-                bGuardar.Enabled = false;
-                this.proveedorSeleccionado = new DataLayer.Models.ViProveedor();
             }
         }
 
@@ -261,28 +258,12 @@ namespace UI
                 foreach (DataLayer.Models.ViAlmacen almacen in this.almacenes)
                     if (almacen.id_almacen == selectedItem.ID)
                         this.almacenSeleccionado = almacen;
-                if(cmbProveedores.SelectedIndex > 0 && dtCompraActual.Rows.Count > 0)
-                    bGuardar.Enabled = true;
-            }
-            else if (cmbProveedores.SelectedIndex == 0)
-            {
-                bGuardar.Enabled = false;
-                this.almacenSeleccionado = new DataLayer.Models.ViAlmacen();
-            }
-
-        }
-        
-        private void tbCantidad_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && tbBuscar.Text != String.Empty && dgvProductos.SelectedRows.Count == 1)
-            {
-                AgregarProductoAlCarrito();
             }
         }
         #endregion
 
         #region Métodos de Apoyo
-        private void CreateDataSource(List<DataLayer.Models.ViProductoPresentacionUnidad> productos)
+        private void CreateDataSource(List<DataLayer.Models.ViProductoCompra> productos)
         {
             dtDatos = new DataTable();
             dtDatos.Clear();
@@ -293,16 +274,6 @@ namespace UI
             //Agregamos columnas segun los atributos del objeto 
             foreach (var item in propertyDict)
                 dtDatos.Columns.Add(item.Key);
-
-            if(dtCompraActual == null)
-            {
-                //DT de productos en el carrito.
-                dtCompraActual = dtDatos.Clone();
-                dtCompraActual.Columns.Add("cantidad");
-                dtCompraActual.Columns.Remove("precio_venta");
-                dtCompraActual.Columns.Remove("multiplicador_kg");
-            }
-
             //Agregamos filas
             for (int i = 0; i < productos.Count; i++)
             {
@@ -313,95 +284,91 @@ namespace UI
                 dtDatos.Rows.Add(_tempRow);
             }
             this.loading = true;
-            dtDatos.Columns["id_producto"].SetOrdinal(0);
-            dtDatos.Columns["id_presentacion_producto"].SetOrdinal(1);
-            dtDatos.Columns["id_unidad_presentacion"].SetOrdinal(2);
-            dtDatos.Columns["nombre"].SetOrdinal(3);
-            dtDatos.Columns["codigo"].SetOrdinal(4);
-            dtDatos.Columns["precio_compra"].SetOrdinal(5);
-            dtDatos.Columns["presentacion"].SetOrdinal(6);
-            dtDatos.Columns["unidades"].SetOrdinal(7);
-            dtDatos.Columns.Remove("precio_venta");
+            dtDatos.Columns.Remove("id_presentacion_producto");
+            dtDatos.Columns.Remove("id_unidad_presentacion");
             dtDatos.Columns.Remove("multiplicador_kg");
-            dgvProductos.DataSource = dtDatos;
-            dgvProductos.Columns[3].HeaderText = "Nombre Producto";
-            dgvProductos.Columns[4].HeaderText = "Código";
-            dgvProductos.Columns[5].HeaderText = "Precio (Bs)";
-            dgvProductos.Columns[6].HeaderText = "Presentación";
-            dgvProductos.Columns[7].HeaderText = "Unidades";
-            dgvProductos.Columns[0].Width = 0;
-            dgvProductos.Columns[1].Width = 0;
-            dgvProductos.Columns[2].Width = 0;
-            dgvProductos.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvProductos.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvProductos.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvProductos.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvProductos.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvProductos.Refresh();
-            dgvProductos.ClearSelection();
-
-
-            dgvCompraActual.DataSource = dtCompraActual;
-            dgvCompraActual.Columns[3].HeaderText = "Nombre Producto";
-            dgvCompraActual.Columns[4].HeaderText = "Código";
-            dgvCompraActual.Columns[5].HeaderText = "Precio (Bs)";
-            dgvCompraActual.Columns[6].HeaderText = "Presentación";
-            dgvCompraActual.Columns[7].HeaderText = "Unidades";
-            dgvCompraActual.Columns[0].Width = 0;
-            dgvCompraActual.Columns[1].Width = 0;
-            dgvCompraActual.Columns[2].Width = 0;
-            dgvCompraActual.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvCompraActual.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvCompraActual.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            dgvCompraActual.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvCompraActual.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvCompraActual.Refresh();
-            dgvCompraActual.ClearSelection();
-
+            dtDatos.Columns.Remove("precio_venta");
+            dtDatos.Columns.Remove("permite_cantidad_fraccionada");
+            dtDatos.Columns["id_producto"].SetOrdinal(0);
+            dtDatos.Columns["nombre"].SetOrdinal(1);
+            dtDatos.Columns["codigo"].SetOrdinal(2);
+            dtDatos.Columns["precio_compra"].SetOrdinal(3);
+            dtDatos.Columns["presentacion"].SetOrdinal(4);
+            dtDatos.Columns["unidades"].SetOrdinal(5);
+            dtDatos.Columns["cantidad"].SetOrdinal(6);
+            dtDatos.Columns["sub_total"].SetOrdinal(7);
+            dgvCompra.DataSource = dtDatos;
+            dgvCompra.Columns[1].HeaderText = "Nombre Producto";
+            dgvCompra.Columns[2].HeaderText = "Código";
+            dgvCompra.Columns[3].HeaderText = "Precio Compra (Bs)";
+            dgvCompra.Columns[4].HeaderText = "Presentación";
+            dgvCompra.Columns[5].HeaderText = "Unidades";
+            dgvCompra.Columns[6].HeaderText = "Cantidad";
+            dgvCompra.Columns[7].HeaderText = "Sub-Total";
+            dgvCompra.Columns[0].Width = 0;
+            dgvCompra.Columns[7].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCompra.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCompra.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            dgvCompra.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            dgvCompra.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            dgvCompra.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCompra.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvCompra.Refresh();
+            dgvCompra.ClearSelection();
             this.loading = false;
-        }
-        
-        private void CalcularTotal()
-        {
-            this.total = 0;
-            foreach (DataRow row in dtCompraActual.Rows)
+
+            foreach (DataGridViewRow linea in dgvCompra.Rows)
             {
-                //multiplicar cantidad por precio-compra
-                this.total += (Convert.ToDecimal(row[8]) * Convert.ToDecimal(row[5]));
+                total += Convert.ToDecimal(linea.Cells[7].Value);
             }
+
             lblTotal.Text = "Total: " + total.ToString() + " Bs.";
         }
 
-        private void AgregarProductoAlCarrito()
+        private async void CargarAlmacenes()
         {
-            bool inCart = false;
-            foreach (DataRow row in dtCompraActual.Rows)
+            loading = true;
+            almacenes = await DataLayer.Tasks.Almacen.listar();
+
+            cmbAlmacenDestino.Items.Clear();
+            cmbAlmacenDestino.Items.Add("Seleccione un almacén...");
+
+            foreach (DataLayer.Models.ViAlmacen almacen in almacenes)
             {
-                if (Convert.ToInt32(row[0]) == productoSeleccionado.id_producto)
+                DataLayer.ComboboxItem cmbBoxItem = new DataLayer.ComboboxItem()
                 {
-                    row["cantidad"] = Convert.ToInt32(row["cantidad"]) + tbCantidad.Value;
-                    inCart = true;
-                }
+                    ID = almacen.id_almacen,
+                    Text = almacen.descripcion
+                };
+                cmbAlmacenDestino.Items.Add(cmbBoxItem);
+                this.cmbBoxAlmacenesItems.Add(cmbBoxItem);
             }
 
-            if (!inCart)
-                dtCompraActual.Rows.Add
-                    (
-                    productoSeleccionado.id_producto,
-                    productoSeleccionado.id_presentacion_producto,
-                    productoSeleccionado.id_unidad_presentacion,
-                    productoSeleccionado.nombre,
-                    productoSeleccionado.codigo,
-                    tbPrecio.Value,
-                    productoSeleccionado.presentacion,
-                    productoSeleccionado.unidades,
-                    tbCantidad.Value
-                    );
-            this.loading = true;
-            dgvCompraActual.DataSource = dtCompraActual;
-            dgvCompraActual.Refresh();
-            this.loading = false;
-            this.CalcularTotal();
+            cmbAlmacenDestino.SelectedIndex = 0;
+            loading = false;
+        }
+
+        private async void CargarProveedores()
+        {
+            loading = true;
+            proveedores = await DataLayer.Tasks.Proveedor.listar();
+
+            cmbProveedores.Items.Clear();
+            cmbProveedores.Items.Add("Seleccione un proveedor...");
+
+            foreach (DataLayer.Models.ViProveedor proveedor in proveedores)
+            {
+                DataLayer.ComboboxItem cmbBoxItem = new DataLayer.ComboboxItem()
+                {
+                    ID = proveedor.id_entidad,
+                    Text = proveedor.nombre
+                };
+                cmbProveedores.Items.Add(cmbBoxItem);
+                this.cmbBoxProveedoresItems.Add(cmbBoxItem);
+            }
+
+            cmbProveedores.SelectedIndex = 0;
+            loading = false;
         }
         #endregion
     }
