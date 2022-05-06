@@ -42,6 +42,7 @@
             this.tbNitCi.Enabled = false;
             this.tbNitCi.Location = new System.Drawing.Point(240, 87);
             this.tbNitCi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tbNitCi.MaxLength = 31;
             this.tbNitCi.Name = "tbNitCi";
             this.tbNitCi.Size = new System.Drawing.Size(280, 28);
             this.tbNitCi.TabIndex = 21;
@@ -51,6 +52,7 @@
             this.tbNombreRazonSocial.Enabled = false;
             this.tbNombreRazonSocial.Location = new System.Drawing.Point(241, 37);
             this.tbNombreRazonSocial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tbNombreRazonSocial.MaxLength = 127;
             this.tbNombreRazonSocial.Name = "tbNombreRazonSocial";
             this.tbNombreRazonSocial.Size = new System.Drawing.Size(280, 28);
             this.tbNombreRazonSocial.TabIndex = 19;
@@ -121,7 +123,7 @@
             this.Font = new System.Drawing.Font("Cascadia Code SemiBold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmCompactClienteInsertar";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

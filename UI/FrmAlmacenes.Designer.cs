@@ -54,12 +54,14 @@
             this.bVolver.Text = "Volver";
             this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bVolver.UseVisualStyleBackColor = false;
+            this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
             // 
             // tbAlmacen
             // 
             this.tbAlmacen.Enabled = false;
             this.tbAlmacen.Location = new System.Drawing.Point(196, 320);
             this.tbAlmacen.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tbAlmacen.MaxLength = 127;
             this.tbAlmacen.Name = "tbAlmacen";
             this.tbAlmacen.Size = new System.Drawing.Size(305, 28);
             this.tbAlmacen.TabIndex = 31;
@@ -193,7 +195,7 @@
             this.Font = new System.Drawing.Font("Cascadia Code SemiBold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "FrmAlmacenes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

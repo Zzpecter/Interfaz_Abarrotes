@@ -362,6 +362,7 @@
             this.bVolver.Text = "Volver";
             this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bVolver.UseVisualStyleBackColor = false;
+            this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
             // 
             // FrmProductos
             // 

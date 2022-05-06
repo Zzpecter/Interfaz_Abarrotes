@@ -131,7 +131,15 @@ namespace UI
                 }
             }
         }
-#endregion
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmMenuPrincipal frm = new FrmMenuPrincipal();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
+        }
+        #endregion
 
         #region Metodos Auxiliares
         private void ChangeState()
@@ -245,5 +253,22 @@ namespace UI
             CreateDataSource(clientes);
         }
         #endregion
+
+        private async void bEditarContactos_Click(object sender, EventArgs e)
+        {
+            FrmContactos frm = new FrmContactos(clienteSeleccionado.id_entidad);
+            frm.ShowDialog();
+
+            // Cargar datos de contacto
+            List<DataLayer.Models.ViContactoUnified> datosContacto = await DataLayer.Tasks.Contacto.listarUnified(clienteSeleccionado.id_entidad);
+            if (datosContacto.Count > 0)
+                RefreshContactData(datosContacto);
+            else
+            {
+                dgvContactos.DataSource = null;
+                dgvContactos.Refresh();
+            }
+
+        }
     }
 }

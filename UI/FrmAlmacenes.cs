@@ -70,18 +70,34 @@ namespace UI
                 case "agregar":
                     if (tbAlmacen.Text != String.Empty)
                     {
-                        //Crear e insertar el almacen
-                        DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
-                        {
-                            descripcion = tbAlmacen.Text,
-                            usuario_registro = Sesion.login_usuario
-                        };
-                        int statusCode = await DataLayer.Tasks.Almacen.insertar(almacen);
+                        //Chekear si el nombre ya existe
+                        bool duplicate = false;
+                        List<DataLayer.Models.ViAlmacen> almacenesCheck = await DataLayer.Tasks.Almacen.listar();
 
-                        if (statusCode == 201)
-                            RefreshData();
-                        formState = "init";
-                        ChangeState();
+                        foreach (DataLayer.Models.ViAlmacen _almacen in almacenesCheck)
+                            if (_almacen.descripcion == tbAlmacen.Text)
+                            {
+                                duplicate = true;
+                                break;
+                            }
+
+                        if (!duplicate)
+                        {
+                            //Crear e insertar el almacen
+                            DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
+                            {
+                                descripcion = tbAlmacen.Text,
+                                usuario_registro = Sesion.login_usuario
+                            };
+                            int statusCode = await DataLayer.Tasks.Almacen.insertar(almacen);
+
+                            if (statusCode == 201)
+                                RefreshData();
+                            formState = "init";
+                            ChangeState();
+                        }
+                        else
+                            MessageBox.Show("El nombre de almacen ya existe! Por favor escoja un nombre único!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                         MessageBox.Show("Ingrese un nombre de almacen antes de guardar!", "Error!", MessageBoxButtons.OK);
@@ -89,17 +105,32 @@ namespace UI
                 case "actualizar":
                     if (tbAlmacen.Text != String.Empty)
                     {
-                        DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
-                        {
-                            descripcion = tbAlmacen.Text,
-                            usuario_registro = Sesion.login_usuario
-                        };
-                        int statusCode = await DataLayer.Tasks.Almacen.actualizar(almacen, almacenSeleccionado.id_almacen);
+                        //Chekear si el nombre ya existe
+                        bool duplicate = false;
+                        List<DataLayer.Models.ViAlmacen> almacenesCheck = await DataLayer.Tasks.Almacen.listar();
 
-                        if (statusCode == 200)
-                            RefreshData();
-                        formState = "init";
-                        ChangeState();
+                        foreach (DataLayer.Models.ViAlmacen _almacen in almacenesCheck)
+                            if (_almacen.descripcion == tbAlmacen.Text)
+                            {
+                                duplicate = true;
+                                break;
+                            }
+
+                        if (!duplicate)
+                        {
+                            DataLayer.Models.Almacen almacen = new DataLayer.Models.Almacen()
+                            {
+                                descripcion = tbAlmacen.Text,
+                                usuario_registro = Sesion.login_usuario
+                            };
+                            int statusCode = await DataLayer.Tasks.Almacen.actualizar(almacen, almacenSeleccionado.id_almacen);
+
+                            if (statusCode == 200)
+                                RefreshData();
+                            formState = "init";
+                            ChangeState();
+                        }
+                        
                     }
                     else
                         MessageBox.Show("Ingrese un nombre de almacen antes de guardar!", "Error!", MessageBoxButtons.OK);
@@ -123,6 +154,14 @@ namespace UI
                 bElimiar.Enabled = true;
                 tbAlmacen.Text = almacenSeleccionado.descripcion;
             }
+        }
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmMenuPrincipal frm = new FrmMenuPrincipal();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
         #endregion
 
@@ -210,5 +249,7 @@ namespace UI
             CreateDataSource(almacenes);
         }
         #endregion
+
+        
     }
 }

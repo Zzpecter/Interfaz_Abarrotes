@@ -43,9 +43,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cmbNivel = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgvContactos = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
             this.bEditarContactos = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dgvContactos = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDatos)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvContactos)).BeginInit();
@@ -83,6 +83,7 @@
             this.bVolver.Text = "Volver";
             this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bVolver.UseVisualStyleBackColor = false;
+            this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
             // 
             // bCancelar
             // 
@@ -244,6 +245,31 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos del Usuario Seleccionado";
             // 
+            // bEditarContactos
+            // 
+            this.bEditarContactos.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bEditarContactos.Enabled = false;
+            this.bEditarContactos.Image = global::UI.Properties.Resources.editar_small;
+            this.bEditarContactos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bEditarContactos.Location = new System.Drawing.Point(650, 170);
+            this.bEditarContactos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bEditarContactos.Name = "bEditarContactos";
+            this.bEditarContactos.Size = new System.Drawing.Size(198, 32);
+            this.bEditarContactos.TabIndex = 25;
+            this.bEditarContactos.Text = "Editar Contactos";
+            this.bEditarContactos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bEditarContactos.UseVisualStyleBackColor = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(511, 12);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(230, 22);
+            this.label4.TabIndex = 24;
+            this.label4.Text = "Contactos Registrados:";
+            // 
             // dgvContactos
             // 
             this.dgvContactos.AllowUserToAddRows = false;
@@ -266,31 +292,6 @@
             this.dgvContactos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvContactos.Size = new System.Drawing.Size(337, 127);
             this.dgvContactos.TabIndex = 23;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(511, 12);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(230, 22);
-            this.label4.TabIndex = 24;
-            this.label4.Text = "Contactos Registrados:";
-            // 
-            // bEditarContactos
-            // 
-            this.bEditarContactos.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bEditarContactos.Enabled = false;
-            this.bEditarContactos.Image = global::UI.Properties.Resources.editar_small;
-            this.bEditarContactos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bEditarContactos.Location = new System.Drawing.Point(650, 170);
-            this.bEditarContactos.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.bEditarContactos.Name = "bEditarContactos";
-            this.bEditarContactos.Size = new System.Drawing.Size(198, 32);
-            this.bEditarContactos.TabIndex = 25;
-            this.bEditarContactos.Text = "Editar Contactos";
-            this.bEditarContactos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bEditarContactos.UseVisualStyleBackColor = false;
             // 
             // FrmUsuario
             // 

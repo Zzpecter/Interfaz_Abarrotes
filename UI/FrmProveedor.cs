@@ -241,5 +241,13 @@ namespace UI
             CreateDataSource(proveedores);
         }
         #endregion
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmMenuPrincipal frm = new FrmMenuPrincipal();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
+        }
     }
 }

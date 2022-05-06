@@ -412,6 +412,12 @@ namespace UI
                 bElimiar.Enabled = true;
             }
         }
+
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
         #endregion
 
         #region Metodos Auxiliares
@@ -766,5 +772,6 @@ namespace UI
             }
         }
         #endregion
+
     }
 }

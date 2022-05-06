@@ -54,6 +54,7 @@
             this.tbNombreRazonSocial.Enabled = false;
             this.tbNombreRazonSocial.Location = new System.Drawing.Point(223, 52);
             this.tbNombreRazonSocial.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tbNombreRazonSocial.MaxLength = 127;
             this.tbNombreRazonSocial.Name = "tbNombreRazonSocial";
             this.tbNombreRazonSocial.Size = new System.Drawing.Size(280, 26);
             this.tbNombreRazonSocial.TabIndex = 15;
@@ -71,6 +72,7 @@
             this.bVolver.Text = "Volver";
             this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bVolver.UseVisualStyleBackColor = false;
+            this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
             // 
             // bCancelar
             // 
@@ -179,6 +181,7 @@
             this.tbNitCi.Enabled = false;
             this.tbNitCi.Location = new System.Drawing.Point(222, 102);
             this.tbNitCi.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.tbNitCi.MaxLength = 31;
             this.tbNitCi.Name = "tbNitCi";
             this.tbNitCi.Size = new System.Drawing.Size(280, 26);
             this.tbNitCi.TabIndex = 18;
@@ -213,6 +216,7 @@
             this.bEditarContactos.Text = "Editar Contactos";
             this.bEditarContactos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bEditarContactos.UseVisualStyleBackColor = false;
+            this.bEditarContactos.Click += new System.EventHandler(this.bEditarContactos_Click);
             // 
             // label4
             // 
