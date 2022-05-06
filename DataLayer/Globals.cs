@@ -50,6 +50,8 @@ namespace DataLayer
         public static string URL_DETALLE_SALIDA = "http://" + API_URL + "detalle_salida";
         public static string URL_FACTURA = "http://" + API_URL + "factura";
         public static string URL_VENTA_CLIENTE = "http://" + API_URL + "views/venta_cliente";
+        public static string URL_DISPOSICION = "http://" + API_URL + "disposicion";
+        public static string URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
 
 
         public static string ACTUAL_API_TOKEN = String.Empty;
@@ -102,7 +104,10 @@ namespace DataLayer
             URL_SALIDA_PRODUCTO = "http://" + API_URL + "salida_producto";
             URL_DETALLE_SALIDA = "http://" + API_URL + "detalle_salida";
             URL_FACTURA = "http://" + API_URL + "factura";
-        }
+            URL_VENTA_CLIENTE = "http://" + API_URL + "views/venta_cliente";
+            URL_DISPOSICION = "http://" + API_URL + "disposicion";
+            URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
+    }
         
         #region Mensajes
         public const string MSJ_PASS_DEBIL = "La contraseña ingresada es muy débil, Intente:\n" +

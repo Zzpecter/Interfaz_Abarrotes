@@ -35,6 +35,7 @@ namespace DataLayer.Models
     {
         public int id_almacen { get; set; }
         public string almacen { get; set; }
+        public decimal stock_actual { get; set; }
     }
     public class ViProductoVenta : ViProductoEnAlmacen
     {

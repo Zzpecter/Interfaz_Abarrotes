@@ -9,6 +9,12 @@
         public DateTime fecha { get; set; }
     }
 
+    public class ViCompraProveedor : ViCompra
+    {
+        public string usuario { get; set; }
+        public string proveedor { get; set; }
+    }
+
     public class Compra : ViCompra
     {
         public string usuario_registro { get; set; }

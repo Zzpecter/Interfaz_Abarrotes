@@ -67,5 +67,65 @@ namespace DataLayer.Tasks
                 Globals.HTTP_HEADERS);
             return ((int)response.StatusCode);
         }
+
+        public static async Task<List<Models.ViCompraProveedor>> listarCompraProveedor()
+        {
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                Globals.URL_COMPRA_PROVEEDOR,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("compra no encontrada"))
+                return new List<Models.ViCompraProveedor>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViCompraProveedor>>(responseText);
+        }
+
+        public static async Task<List<Models.ViCompraProveedor>> buscarPorFecha(DateTime desde, DateTime hasta)
+        {
+            string url = Globals.URL_COMPRA_PROVEEDOR + "/" + desde.ToString("MM-dd-yyyy") + "/" + hasta.ToString("MM-dd-yyyy");
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("compra no encontrada"))
+                return new List<Models.ViCompraProveedor>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViCompraProveedor>>(responseText);
+        }
+
+        public static async Task<List<Models.ViCompraProveedor>> buscarPorProveedor(string query)
+        {
+            string url = Globals.URL_COMPRA_PROVEEDOR + "/" + query;
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("compra no encontrada"))
+                return new List<Models.ViCompraProveedor>(); //devuelve lista vacia
+            return JsonConvert.DeserializeObject<List<Models.ViCompraProveedor>>(responseText);
+        }
+
+
+        public static async Task<Models.ViCompraProveedor> seleccionarCompraProveedor(int idCompra)
+        {
+            string url = Globals.URL_COMPRA_PROVEEDOR + "/" + idCompra.ToString();
+            var response = await RequestController.SendHttpRequest(
+                HttpMethod.Get,
+                url,
+                String.Empty,
+                Globals.HTTP_HEADERS);
+
+            string responseText = await response.Content.ReadAsStringAsync();
+            if (responseText.Contains("compra no encontrada"))
+                return new Models.ViCompraProveedor() { id_compra = -1 }; //devuelve lista vacia
+            return JsonConvert.DeserializeObject<Models.ViCompraProveedor>(responseText);
+        }
     }
 }

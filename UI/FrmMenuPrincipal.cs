@@ -43,7 +43,10 @@ namespace UI
 
         private void bListadoCompras_Click(object sender, EventArgs e)
         {
-            //TODO
+            this.Hide();
+            FrmListadoCompras frm = new FrmListadoCompras();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
 
         private void bReportes_Click(object sender, EventArgs e)
@@ -131,6 +134,14 @@ namespace UI
         private void FrmMenuPrincipal_Load(object sender, EventArgs e)
         {
             lblUsuarioActual.Text = "Bienvenid@\n" + Sesion.login_usuario.ToUpperInvariant() +"!!";
+        }
+
+        private void bDisposiciones_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmDisposiciones frm = new FrmDisposiciones();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
     }
 }

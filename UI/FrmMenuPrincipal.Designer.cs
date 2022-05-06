@@ -40,6 +40,7 @@
             this.bClientes = new System.Windows.Forms.Button();
             this.bUsuarios = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.bDisposiciones = new System.Windows.Forms.Button();
             this.bUnidades = new System.Windows.Forms.Button();
             this.bPresentaciones = new System.Windows.Forms.Button();
             this.bProductos = new System.Windows.Forms.Button();
@@ -132,7 +133,7 @@
             this.groupBox2.Controls.Add(this.bUsuarios);
             this.groupBox2.Location = new System.Drawing.Point(12, 301);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(340, 272);
+            this.groupBox2.Size = new System.Drawing.Size(323, 289);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Gestión RR HH";
@@ -169,19 +170,30 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.bDisposiciones);
             this.groupBox3.Controls.Add(this.bUnidades);
             this.groupBox3.Controls.Add(this.bPresentaciones);
             this.groupBox3.Controls.Add(this.bProductos);
-            this.groupBox3.Location = new System.Drawing.Point(358, 301);
+            this.groupBox3.Location = new System.Drawing.Point(341, 301);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(360, 272);
+            this.groupBox3.Size = new System.Drawing.Size(377, 289);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Gestión de Productos";
             // 
+            // bDisposiciones
+            // 
+            this.bDisposiciones.Location = new System.Drawing.Point(18, 219);
+            this.bDisposiciones.Name = "bDisposiciones";
+            this.bDisposiciones.Size = new System.Drawing.Size(337, 57);
+            this.bDisposiciones.TabIndex = 6;
+            this.bDisposiciones.Text = "Disposiciones";
+            this.bDisposiciones.UseVisualStyleBackColor = true;
+            this.bDisposiciones.Click += new System.EventHandler(this.bDisposiciones_Click);
+            // 
             // bUnidades
             // 
-            this.bUnidades.Location = new System.Drawing.Point(17, 178);
+            this.bUnidades.Location = new System.Drawing.Point(18, 156);
             this.bUnidades.Name = "bUnidades";
             this.bUnidades.Size = new System.Drawing.Size(337, 57);
             this.bUnidades.TabIndex = 5;
@@ -191,7 +203,7 @@
             // 
             // bPresentaciones
             // 
-            this.bPresentaciones.Location = new System.Drawing.Point(17, 115);
+            this.bPresentaciones.Location = new System.Drawing.Point(18, 93);
             this.bPresentaciones.Name = "bPresentaciones";
             this.bPresentaciones.Size = new System.Drawing.Size(337, 57);
             this.bPresentaciones.TabIndex = 4;
@@ -201,7 +213,7 @@
             // 
             // bProductos
             // 
-            this.bProductos.Location = new System.Drawing.Point(17, 52);
+            this.bProductos.Location = new System.Drawing.Point(18, 30);
             this.bProductos.Name = "bProductos";
             this.bProductos.Size = new System.Drawing.Size(337, 57);
             this.bProductos.TabIndex = 3;
@@ -281,7 +293,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1101, 585);
+            this.ClientSize = new System.Drawing.Size(1101, 602);
             this.Controls.Add(this.lblUsuarioActual);
             this.Controls.Add(this.bPerfil);
             this.Controls.Add(this.bSalir);
@@ -329,5 +341,6 @@
         private Button bSalir;
         private Button bPerfil;
         private Label lblUsuarioActual;
+        private Button bDisposiciones;
     }
 }

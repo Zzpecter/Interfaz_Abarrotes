@@ -13,6 +13,9 @@
     <Compile Update="FrmCompactClienteInsertar.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmCompactDisposicionInsertar.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmCompactProductoBuscar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -25,7 +28,16 @@
     <Compile Update="FrmContactos.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmDetallesCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FrmDetallesVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmDisposiciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmListadoCompras.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FrmListadoVentas.cs">
