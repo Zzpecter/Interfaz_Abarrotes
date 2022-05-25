@@ -107,6 +107,12 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "CrystalReports.ReportSource": {
+              "target": "Package",
+              "version": "[13.0.4001, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

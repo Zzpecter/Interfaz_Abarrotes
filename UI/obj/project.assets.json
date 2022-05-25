@@ -2,6 +2,83 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "CrystalReports.ReportSource/13.0.4001": {
+        "type": "package",
+        "compile": {
+          "lib/net40/CrystalDecisions.ReportSource.dll": {}
+        },
+        "runtime": {
+          "lib/net40/CrystalDecisions.ReportSource.dll": {}
+        },
+        "resource": {
+          "lib/net40/cs/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net40/da/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "da"
+          },
+          "lib/net40/de/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net40/en/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "en"
+          },
+          "lib/net40/es/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net40/fi/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "fi"
+          },
+          "lib/net40/fr/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net40/hu/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net40/it/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net40/ja/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net40/ko/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net40/nb-NO/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "nb-NO"
+          },
+          "lib/net40/nl/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/net40/pl/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net40/pt/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/net40/ru/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net40/sk/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "sk"
+          },
+          "lib/net40/sv/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net40/th/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "th"
+          },
+          "lib/net40/tr/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net40/zh-CHS/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "zh-CHS"
+          },
+          "lib/net40/zh-CHT/CrystalDecisions.ReportSource.resources.dll": {
+            "locale": "zh-CHT"
+          }
+        }
+      },
       "Microsoft.Win32.SystemEvents/6.0.0": {
         "type": "package",
         "compile": {
@@ -157,6 +234,44 @@
     }
   },
   "libraries": {
+    "CrystalReports.ReportSource/13.0.4001": {
+      "sha512": "vYds4quZmEFUaix72ho5S0bdztrGFfYfTKD4gDWDU6eRk1aToNqoQmwp+MdPk4H0rtIE8X3DD4sPLVmCqL03QQ==",
+      "type": "package",
+      "path": "crystalreports.reportsource/13.0.4001",
+      "files": [
+        ".editoricon.png",
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md",
+        "crystalreports.reportsource.13.0.4001.nupkg.sha512",
+        "crystalreports.reportsource.nuspec",
+        "lib/net40/CrystalDecisions.ReportSource.dll",
+        "lib/net40/cs/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/da/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/de/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/en/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/es/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/fi/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/fr/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/hu/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/it/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/ja/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/ko/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/nb-NO/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/nl/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/pl/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/pt/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/ru/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/sk/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/sv/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/th/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/tr/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/zh-CHS/CrystalDecisions.ReportSource.resources.dll",
+        "lib/net40/zh-CHT/CrystalDecisions.ReportSource.resources.dll"
+      ]
+    },
     "Microsoft.Win32.SystemEvents/6.0.0": {
       "sha512": "hqTM5628jSsQiv+HGpiq3WKBl2c8v1KZfby2J6Pr7pEPlK9waPdgEO6b8A/+/xn/yZ9ulv8HuqK71ONy2tg67A==",
       "type": "package",
@@ -401,6 +516,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "CrystalReports.ReportSource >= 13.0.4001",
       "DataLayer >= 1.0.0"
     ]
   },
@@ -446,6 +562,12 @@
     "frameworks": {
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
+        "dependencies": {
+          "CrystalReports.ReportSource": {
+            "target": "Package",
+            "version": "[13.0.4001, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -467,5 +589,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"CrystalReports.ReportSource 13.0.4001\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" en lugar de la plataforma de destino del proyecto \"net6.0-windows7.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
+      "libraryId": "CrystalReports.ReportSource",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

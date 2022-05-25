@@ -143,5 +143,13 @@ namespace UI
             frm.Closed += (s, args) => this.Close();
             frm.Show();
         }
+
+        private void bDescuentos_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmDescuentos frm = new FrmDescuentos();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
+        }
     }
 }

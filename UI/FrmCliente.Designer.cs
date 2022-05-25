@@ -205,7 +205,6 @@
             // bEditarContactos
             // 
             this.bEditarContactos.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bEditarContactos.Enabled = false;
             this.bEditarContactos.Image = global::UI.Properties.Resources.editar_small;
             this.bEditarContactos.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bEditarContactos.Location = new System.Drawing.Point(650, 170);

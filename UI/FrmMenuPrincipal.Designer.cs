@@ -50,6 +50,7 @@
             this.bSalir = new System.Windows.Forms.Button();
             this.bPerfil = new System.Windows.Forms.Button();
             this.lblUsuarioActual = new System.Windows.Forms.Label();
+            this.bDescuentos = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,6 +59,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.bDescuentos);
             this.groupBox1.Controls.Add(this.bRegistroCompras);
             this.groupBox1.Controls.Add(this.bReportes);
             this.groupBox1.Controls.Add(this.bRegistroVentas);
@@ -85,7 +87,7 @@
             // 
             // bReportes
             // 
-            this.bReportes.Location = new System.Drawing.Point(389, 170);
+            this.bReportes.Location = new System.Drawing.Point(391, 209);
             this.bReportes.Name = "bReportes";
             this.bReportes.Size = new System.Drawing.Size(245, 57);
             this.bReportes.TabIndex = 5;
@@ -108,7 +110,7 @@
             // 
             // bListadoCompras
             // 
-            this.bListadoCompras.Location = new System.Drawing.Point(389, 107);
+            this.bListadoCompras.Location = new System.Drawing.Point(391, 85);
             this.bListadoCompras.Name = "bListadoCompras";
             this.bListadoCompras.Size = new System.Drawing.Size(245, 57);
             this.bListadoCompras.TabIndex = 4;
@@ -118,7 +120,7 @@
             // 
             // bListadoVentas
             // 
-            this.bListadoVentas.Location = new System.Drawing.Point(389, 44);
+            this.bListadoVentas.Location = new System.Drawing.Point(391, 22);
             this.bListadoVentas.Name = "bListadoVentas";
             this.bListadoVentas.Size = new System.Drawing.Size(245, 57);
             this.bListadoVentas.TabIndex = 3;
@@ -289,6 +291,16 @@
             this.lblUsuarioActual.Text = "Bienvenid@:";
             this.lblUsuarioActual.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // bDescuentos
+            // 
+            this.bDescuentos.Location = new System.Drawing.Point(391, 146);
+            this.bDescuentos.Name = "bDescuentos";
+            this.bDescuentos.Size = new System.Drawing.Size(245, 57);
+            this.bDescuentos.TabIndex = 6;
+            this.bDescuentos.Text = "Descuentos";
+            this.bDescuentos.UseVisualStyleBackColor = true;
+            this.bDescuentos.Click += new System.EventHandler(this.bDescuentos_Click);
+            // 
             // FrmMenuPrincipal
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -342,5 +354,6 @@
         private Button bPerfil;
         private Label lblUsuarioActual;
         private Button bDisposiciones;
+        private Button bDescuentos;
     }
 }

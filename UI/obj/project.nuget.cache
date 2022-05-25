@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EpWhWr45dcnZhCwz2vlmFH50bbPFj7yzhKpKdaNlV5dRoMaZ85FevQXHe4a/89JOgTYsQ8pyXfbE3UrkGp6Hww==",
+  "dgSpecHash": "jmmE6cfXbIiEQqew6t0j0lON/QlNXQwLhzNJkU2mx0GrlxBQ0t94kNOuPX78fLT7RGUZewwSufVTOSyEILOh1A==",
   "success": true,
   "projectFilePath": "C:\\Users\\renev\\Documents\\Projects\\ab\\Interfaz_Abarrotes\\UI\\UI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\renev\\.nuget\\packages\\crystalreports.reportsource\\13.0.4001\\crystalreports.reportsource.13.0.4001.nupkg.sha512",
     "C:\\Users\\renev\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\renev\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\renev\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.0\\system.configuration.configurationmanager.6.0.0.nupkg.sha512",
@@ -13,5 +14,16 @@
     "C:\\Users\\renev\\.nuget\\packages\\system.security.permissions\\6.0.0\\system.security.permissions.6.0.0.nupkg.sha512",
     "C:\\Users\\renev\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "El paquete \"CrystalReports.ReportSource 13.0.4001\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8\" en lugar de la plataforma de destino del proyecto \"net6.0-windows7.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
+      "libraryId": "CrystalReports.ReportSource",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }

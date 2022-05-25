@@ -52,6 +52,7 @@ namespace DataLayer
         public static string URL_VENTA_CLIENTE = "http://" + API_URL + "views/venta_cliente";
         public static string URL_DISPOSICION = "http://" + API_URL + "disposicion";
         public static string URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
+        public static string URL_DESCUENTOS = "http://" + API_URL + "descuentos";
 
 
         public static string ACTUAL_API_TOKEN = String.Empty;

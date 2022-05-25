@@ -51,12 +51,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bVolver = new System.Windows.Forms.Button();
             this.lblTotal = new System.Windows.Forms.Label();
             this.bGuardar = new System.Windows.Forms.Button();
             this.bCambiarCantidad = new System.Windows.Forms.Button();
             this.bQuitar = new System.Windows.Forms.Button();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
-            this.bVolver = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPrecioVenta)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -310,6 +310,21 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Acciones";
             // 
+            // bVolver
+            // 
+            this.bVolver.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bVolver.Image = global::UI.Properties.Resources.volver;
+            this.bVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bVolver.Location = new System.Drawing.Point(7, 27);
+            this.bVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bVolver.Name = "bVolver";
+            this.bVolver.Size = new System.Drawing.Size(136, 64);
+            this.bVolver.TabIndex = 47;
+            this.bVolver.Text = "Volver";
+            this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bVolver.UseVisualStyleBackColor = false;
+            this.bVolver.Click += new System.EventHandler(this.bVolver_Click);
+            // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
@@ -387,20 +402,6 @@
             this.dgvVenta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvVenta.Size = new System.Drawing.Size(1062, 176);
             this.dgvVenta.TabIndex = 35;
-            // 
-            // bVolver
-            // 
-            this.bVolver.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bVolver.Image = global::UI.Properties.Resources.volver;
-            this.bVolver.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bVolver.Location = new System.Drawing.Point(7, 27);
-            this.bVolver.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.bVolver.Name = "bVolver";
-            this.bVolver.Size = new System.Drawing.Size(136, 64);
-            this.bVolver.TabIndex = 47;
-            this.bVolver.Text = "Volver";
-            this.bVolver.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bVolver.UseVisualStyleBackColor = false;
             // 
             // FrmVentas
             // 

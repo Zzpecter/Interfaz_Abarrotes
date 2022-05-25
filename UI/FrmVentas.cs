@@ -210,6 +210,10 @@ namespace UI
                 {
                     this.productoSeleccionado = frm.productoSeleccionado;
 
+                    //Chekea si el producto tiene una oferta activa, si es así cambia el precio de venta por
+                    // el de oferta
+
+
                     tbNombreProducto.Text = this.productoSeleccionado.nombre;
                     tbPresentacion.Text = this.productoSeleccionado.presentacion;
                     tbUnidades.Text = this.productoSeleccionado.unidades;
@@ -334,6 +338,14 @@ namespace UI
             }
 
             lblTotal.Text = "Total: " + total.ToString() + " Bs.";  
+        }
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmMenuPrincipal frm = new FrmMenuPrincipal();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
     }
 }
