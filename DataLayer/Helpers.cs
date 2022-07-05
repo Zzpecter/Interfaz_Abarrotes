@@ -54,6 +54,14 @@ namespace DataLayer
 
             return (PasswordScore)score;
         }
+
+
+        public static DateTime DateFromString(string dateString)
+        {
+            string[] dateList = dateString.Split(new[] { "-" }, StringSplitOptions.None);
+            return new DateTime(Convert.ToInt32(dateList[2]), Convert.ToInt32(dateList[1]), Convert.ToInt32(dateList[0]));
+        }
+
     }
 
     

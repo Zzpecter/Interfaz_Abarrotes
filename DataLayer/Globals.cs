@@ -53,6 +53,7 @@ namespace DataLayer
         public static string URL_DISPOSICION = "http://" + API_URL + "disposicion";
         public static string URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
         public static string URL_DESCUENTOS = "http://" + API_URL + "descuentos";
+        public static string URL_REPORTE_VENTAS = "http://" + API_URL + "reportes/ventas";
 
 
         public static string ACTUAL_API_TOKEN = String.Empty;
@@ -108,6 +109,8 @@ namespace DataLayer
             URL_VENTA_CLIENTE = "http://" + API_URL + "views/venta_cliente";
             URL_DISPOSICION = "http://" + API_URL + "disposicion";
             URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
+            URL_DESCUENTOS = "http://" + API_URL + "descuentos";
+            URL_REPORTE_VENTAS = "http://" + API_URL + "reportes/ventas";
     }
         
         #region Mensajes

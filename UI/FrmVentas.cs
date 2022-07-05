@@ -10,11 +10,6 @@ using System.Windows.Forms;
 
 namespace UI
 {
-
-    //TODO metodo con timer para determinar si el input es de un barcode scanner
-    // si se hace un input con barcode scanner hacer una busqueda de producto
-    //TODO controlar la tecla ENTER en tbNITCI, cuando se aprete seleccionar cliente por CI
-
     public partial class FrmVentas : Form
     {
         #region Variables e Inicializacion
@@ -70,6 +65,9 @@ namespace UI
                     this.tbUnidades.Text = productoSeleccionado.unidades;
                     this.tbPrecioVenta.Value = productoSeleccionado.precio_venta;
 
+                    //Chekear si existe un descuento para el producto
+                    this.buscarDescuentos();
+
                     bAgregar.Enabled = true;
                 }
                 _barcode.Clear();
@@ -99,26 +97,6 @@ namespace UI
         {
             crearCliente();
         }
-        #endregion
-
-
-        #region Métodos Auxiliares
-        private async void crearCliente()
-        {
-            //Mostrar el FrmCompactClienteInsertar
-            //Que retorne un objeto de tipo ViCliente
-            FrmCompactClienteInsertar frm = new FrmCompactClienteInsertar();
-            var result = frm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                this.clienteSeleccionado = frm.viCliente;
-
-                tbNombreCliente.Text = this.clienteSeleccionado.razon_social;
-                tbNitCi.ReadOnly = true;
-                tbNitCi.Enabled = false;
-            }
-        }
-        #endregion
 
         private async void bGuardar_Click(object sender, EventArgs e)
         {
@@ -178,7 +156,7 @@ namespace UI
                     usuario_registro = Sesion.login_usuario
                 };
                 int statusCode = await DataLayer.Tasks.ProductoAlmacen.actualizar(productoAlmacenActualizado, _productoAlmacen.id_producto_almacen);
-                
+
 
                 //registrar detalle_salida
                 DataLayer.Models.DetalleSalida detalleSalida = new DataLayer.Models.DetalleSalida()
@@ -210,14 +188,13 @@ namespace UI
                 {
                     this.productoSeleccionado = frm.productoSeleccionado;
 
-                    //Chekea si el producto tiene una oferta activa, si es así cambia el precio de venta por
-                    // el de oferta
-
-
                     tbNombreProducto.Text = this.productoSeleccionado.nombre;
                     tbPresentacion.Text = this.productoSeleccionado.presentacion;
                     tbUnidades.Text = this.productoSeleccionado.unidades;
                     tbPrecioVenta.Value = this.productoSeleccionado.precio_venta;
+
+                    //Chekear si existe un descuento para el producto
+                    this.buscarDescuentos();
 
                     bAgregar.Enabled = true;
                 }
@@ -256,7 +233,7 @@ namespace UI
                     nombre = this.productoSeleccionado.nombre,
                     codigo = this.productoSeleccionado.codigo,
                     precio_compra = this.productoSeleccionado.precio_compra,
-                    precio_venta = this.productoSeleccionado.precio_venta,
+                    precio_venta = this.tbPrecioVenta.Value,
                     permite_cantidad_fraccionada = this.productoSeleccionado.permite_cantidad_fraccionada,
                     presentacion = this.productoSeleccionado.presentacion,
                     unidades = this.productoSeleccionado.unidades,
@@ -273,6 +250,55 @@ namespace UI
                 tbPresentacion.Text = String.Empty;
                 tbUnidades.Text = String.Empty;
                 tbPrecioVenta.Value = tbPrecioVenta.Minimum;
+            }
+        }
+
+
+        private void bVolver_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmMenuPrincipal frm = new FrmMenuPrincipal();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
+        }
+
+
+        private void btnAnularOferta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            tbPrecioVenta.Value = this.productoSeleccionado.precio_venta;
+            btnAnularOferta.Visible = false;
+            lblOferta.Visible = false;
+        }
+        #endregion
+
+
+        #region Métodos Auxiliares
+        private void crearCliente()
+        {
+            //Mostrar el FrmCompactClienteInsertar
+            //Que retorne un objeto de tipo ViCliente
+            FrmCompactClienteInsertar frm = new FrmCompactClienteInsertar();
+            var result = frm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                this.clienteSeleccionado = frm.viCliente;
+
+                tbNombreCliente.Text = this.clienteSeleccionado.razon_social;
+                tbNitCi.ReadOnly = true;
+                tbNitCi.Enabled = false;
+            }
+        }
+
+        private async void buscarDescuentos()
+        {
+            //Chekea si el producto seleccionado tiene una oferta activa, si es así cambia 
+            //el precio de venta por el de oferta
+            DataLayer.Models.ViDescuentoProducto descuento = await DataLayer.Tasks.Descuento.seleccionarProducto(this.productoSeleccionado.id_producto);
+            if (descuento.id_descuento != -1)
+            {
+                tbPrecioVenta.Value = descuento.precio_oferta;
+                btnAnularOferta.Visible = true;
+                lblOferta.Visible = true;
             }
         }
 
@@ -332,20 +358,15 @@ namespace UI
             dgvVenta.ClearSelection();
             this.loading = false;
 
-            foreach(DataGridViewRow linea in dgvVenta.Rows )
+            foreach (DataGridViewRow linea in dgvVenta.Rows)
             {
                 total += Convert.ToDecimal(linea.Cells[7].Value);
             }
 
-            lblTotal.Text = "Total: " + total.ToString() + " Bs.";  
+            lblTotal.Text = "Total: " + total.ToString() + " Bs.";
         }
+        #endregion
 
-        private void bVolver_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            FrmMenuPrincipal frm = new FrmMenuPrincipal();
-            frm.Closed += (s, args) => this.Close();
-            frm.Show();
-        }
+        
     }
 }

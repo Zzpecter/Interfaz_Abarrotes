@@ -57,6 +57,8 @@
             this.bCambiarCantidad = new System.Windows.Forms.Button();
             this.bQuitar = new System.Windows.Forms.Button();
             this.dgvVenta = new System.Windows.Forms.DataGridView();
+            this.lblOferta = new System.Windows.Forms.Label();
+            this.btnAnularOferta = new System.Windows.Forms.LinkLabel();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbPrecioVenta)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -67,6 +69,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnAnularOferta);
+            this.groupBox2.Controls.Add(this.lblOferta);
             this.groupBox2.Controls.Add(this.tbPrecioVenta);
             this.groupBox2.Controls.Add(this.bAgregar);
             this.groupBox2.Controls.Add(this.label7);
@@ -403,6 +407,32 @@
             this.dgvVenta.Size = new System.Drawing.Size(1062, 176);
             this.dgvVenta.TabIndex = 35;
             // 
+            // lblOferta
+            // 
+            this.lblOferta.AutoSize = true;
+            this.lblOferta.BackColor = System.Drawing.Color.White;
+            this.lblOferta.Font = new System.Drawing.Font("Cascadia Code SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblOferta.ForeColor = System.Drawing.Color.Green;
+            this.lblOferta.Location = new System.Drawing.Point(446, 152);
+            this.lblOferta.Name = "lblOferta";
+            this.lblOferta.Size = new System.Drawing.Size(162, 20);
+            this.lblOferta.TabIndex = 53;
+            this.lblOferta.Text = "Precio de Oferta!";
+            this.lblOferta.Visible = false;
+            // 
+            // btnAnularOferta
+            // 
+            this.btnAnularOferta.AutoSize = true;
+            this.btnAnularOferta.Font = new System.Drawing.Font("Cascadia Code SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnAnularOferta.Location = new System.Drawing.Point(603, 152);
+            this.btnAnularOferta.Name = "btnAnularOferta";
+            this.btnAnularOferta.Size = new System.Drawing.Size(63, 20);
+            this.btnAnularOferta.TabIndex = 54;
+            this.btnAnularOferta.TabStop = true;
+            this.btnAnularOferta.Text = "Anular";
+            this.btnAnularOferta.Visible = false;
+            this.btnAnularOferta.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btnAnularOferta_LinkClicked);
+            // 
             // FrmVentas
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -465,5 +495,7 @@
         private NumericUpDown tbPrecioVenta;
         private TextBox tbBarcode;
         private Button bVolver;
+        private LinkLabel btnAnularOferta;
+        private Label lblOferta;
     }
 }

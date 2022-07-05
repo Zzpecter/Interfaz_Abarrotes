@@ -51,7 +51,10 @@ namespace UI
 
         private void bReportes_Click(object sender, EventArgs e)
         {
-            //TODO
+            this.Hide();
+            FrmListadoReportes frm = new FrmListadoReportes();
+            frm.Closed += (s, args) => this.Close();
+            frm.Show();
         }
 
         private void bPerfil_Click(object sender, EventArgs e)
