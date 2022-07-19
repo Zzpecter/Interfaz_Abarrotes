@@ -52,7 +52,7 @@ namespace UI
         private void bReportes_Click(object sender, EventArgs e)
         {
             this.Hide();
-            FrmListadoReportes frm = new FrmListadoReportes();
+            FrmGeneradorReportes frm = new FrmGeneradorReportes();
             frm.Closed += (s, args) => this.Close();
             frm.Show();
         }

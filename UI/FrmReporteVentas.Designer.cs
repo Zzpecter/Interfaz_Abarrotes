@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmGeneradorReportes));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.bReporteMensualPasado = new System.Windows.Forms.Button();
+            this.bReporteMensualActual = new System.Windows.Forms.Button();
             this.lblHasta = new System.Windows.Forms.Label();
             this.lblDesde = new System.Windows.Forms.Label();
             this.lblProducto = new System.Windows.Forms.Label();
@@ -48,11 +50,14 @@
             this.bGenerar = new System.Windows.Forms.Button();
             this.bReporteCompras = new System.Windows.Forms.Button();
             this.bReporteVentas = new System.Windows.Forms.Button();
+            this.bReporteGanancias = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.bReporteMensualPasado);
+            this.groupBox2.Controls.Add(this.bReporteMensualActual);
             this.groupBox2.Controls.Add(this.lblHasta);
             this.groupBox2.Controls.Add(this.lblDesde);
             this.groupBox2.Controls.Add(this.lblProducto);
@@ -70,10 +75,38 @@
             this.groupBox2.Controls.Add(this.rbFiltrarFecha);
             this.groupBox2.Location = new System.Drawing.Point(12, 119);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1043, 170);
+            this.groupBox2.Size = new System.Drawing.Size(1043, 221);
             this.groupBox2.TabIndex = 39;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Opciones";
+            // 
+            // bReporteMensualPasado
+            // 
+            this.bReporteMensualPasado.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bReporteMensualPasado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bReporteMensualPasado.Location = new System.Drawing.Point(227, 128);
+            this.bReporteMensualPasado.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
+            this.bReporteMensualPasado.Name = "bReporteMensualPasado";
+            this.bReporteMensualPasado.Size = new System.Drawing.Size(227, 34);
+            this.bReporteMensualPasado.TabIndex = 53;
+            this.bReporteMensualPasado.Text = "Mensual (Pasado)";
+            this.bReporteMensualPasado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bReporteMensualPasado.UseVisualStyleBackColor = false;
+            this.bReporteMensualPasado.Click += new System.EventHandler(this.cambioFechasClick);
+            // 
+            // bReporteMensualActual
+            // 
+            this.bReporteMensualActual.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.bReporteMensualActual.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bReporteMensualActual.Location = new System.Drawing.Point(6, 128);
+            this.bReporteMensualActual.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
+            this.bReporteMensualActual.Name = "bReporteMensualActual";
+            this.bReporteMensualActual.Size = new System.Drawing.Size(227, 34);
+            this.bReporteMensualActual.TabIndex = 52;
+            this.bReporteMensualActual.Text = "Mensual (Actual)";
+            this.bReporteMensualActual.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bReporteMensualActual.UseVisualStyleBackColor = false;
+            this.bReporteMensualActual.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // lblHasta
             // 
@@ -125,13 +158,13 @@
             this.checkBox1.TabIndex = 48;
             this.checkBox1.Text = "Filtrar por Producto:";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // bReporteAnualPasado
             // 
             this.bReporteAnualPasado.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteAnualPasado.Enabled = false;
             this.bReporteAnualPasado.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bReporteAnualPasado.Location = new System.Drawing.Point(202, 125);
+            this.bReporteAnualPasado.Location = new System.Drawing.Point(204, 165);
             this.bReporteAnualPasado.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
             this.bReporteAnualPasado.Name = "bReporteAnualPasado";
             this.bReporteAnualPasado.Size = new System.Drawing.Size(196, 34);
@@ -139,11 +172,11 @@
             this.bReporteAnualPasado.Text = "Anual (Pasado)";
             this.bReporteAnualPasado.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteAnualPasado.UseVisualStyleBackColor = false;
+            this.bReporteAnualPasado.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // bReporteSemanalPasada
             // 
             this.bReporteSemanalPasada.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteSemanalPasada.Enabled = false;
             this.bReporteSemanalPasada.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bReporteSemanalPasada.Location = new System.Drawing.Point(227, 92);
             this.bReporteSemanalPasada.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
@@ -153,11 +186,11 @@
             this.bReporteSemanalPasada.Text = "Semanal (Pasada)";
             this.bReporteSemanalPasada.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteSemanalPasada.UseVisualStyleBackColor = false;
+            this.bReporteSemanalPasada.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // bReporteDiarioAyer
             // 
             this.bReporteDiarioAyer.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteDiarioAyer.Enabled = false;
             this.bReporteDiarioAyer.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bReporteDiarioAyer.Location = new System.Drawing.Point(174, 61);
             this.bReporteDiarioAyer.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
@@ -167,13 +200,13 @@
             this.bReporteDiarioAyer.Text = "Diario (Ayer)";
             this.bReporteDiarioAyer.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteDiarioAyer.UseVisualStyleBackColor = false;
+            this.bReporteDiarioAyer.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // bReporteAnualActual
             // 
             this.bReporteAnualActual.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteAnualActual.Enabled = false;
             this.bReporteAnualActual.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bReporteAnualActual.Location = new System.Drawing.Point(7, 125);
+            this.bReporteAnualActual.Location = new System.Drawing.Point(9, 165);
             this.bReporteAnualActual.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
             this.bReporteAnualActual.Name = "bReporteAnualActual";
             this.bReporteAnualActual.Size = new System.Drawing.Size(196, 34);
@@ -181,11 +214,11 @@
             this.bReporteAnualActual.Text = "Anual (Actual)";
             this.bReporteAnualActual.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteAnualActual.UseVisualStyleBackColor = false;
+            this.bReporteAnualActual.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // bReporteSemanalActual
             // 
             this.bReporteSemanalActual.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteSemanalActual.Enabled = false;
             this.bReporteSemanalActual.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bReporteSemanalActual.Location = new System.Drawing.Point(6, 92);
             this.bReporteSemanalActual.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
@@ -195,11 +228,11 @@
             this.bReporteSemanalActual.Text = "Semanal (Actual)";
             this.bReporteSemanalActual.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteSemanalActual.UseVisualStyleBackColor = false;
+            this.bReporteSemanalActual.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // bReporteDiarioHoy
             // 
             this.bReporteDiarioHoy.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.bReporteDiarioHoy.Enabled = false;
             this.bReporteDiarioHoy.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.bReporteDiarioHoy.Location = new System.Drawing.Point(6, 61);
             this.bReporteDiarioHoy.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
@@ -209,6 +242,7 @@
             this.bReporteDiarioHoy.Text = "Diario (Hoy)";
             this.bReporteDiarioHoy.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bReporteDiarioHoy.UseVisualStyleBackColor = false;
+            this.bReporteDiarioHoy.Click += new System.EventHandler(this.cambioFechasClick);
             // 
             // dtpHasta
             // 
@@ -217,6 +251,7 @@
             this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Size = new System.Drawing.Size(155, 28);
             this.dtpHasta.TabIndex = 6;
+            this.dtpHasta.ValueChanged += new System.EventHandler(this.cambioFechasClick);
             // 
             // dtpDesde
             // 
@@ -225,6 +260,7 @@
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(155, 28);
             this.dtpDesde.TabIndex = 4;
+            this.dtpDesde.ValueChanged += new System.EventHandler(this.cambioFechasClick);
             // 
             // rbPredeterminados
             // 
@@ -236,6 +272,7 @@
             this.rbPredeterminados.TabStop = true;
             this.rbPredeterminados.Text = "Predeterminados";
             this.rbPredeterminados.UseVisualStyleBackColor = true;
+            this.rbPredeterminados.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // rbFiltrarFecha
             // 
@@ -247,12 +284,13 @@
             this.rbFiltrarFecha.TabStop = true;
             this.rbFiltrarFecha.Text = "Filtrar por Fecha";
             this.rbFiltrarFecha.UseVisualStyleBackColor = true;
+            this.rbFiltrarFecha.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
             // bGenerar
             // 
             this.bGenerar.BackColor = System.Drawing.Color.WhiteSmoke;
             this.bGenerar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.bGenerar.Location = new System.Drawing.Point(917, 293);
+            this.bGenerar.Location = new System.Drawing.Point(917, 344);
             this.bGenerar.Margin = new System.Windows.Forms.Padding(4, 1, 4, 1);
             this.bGenerar.Name = "bGenerar";
             this.bGenerar.Size = new System.Drawing.Size(138, 34);
@@ -273,6 +311,7 @@
             this.bReporteCompras.Text = "Reporte Compras";
             this.bReporteCompras.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bReporteCompras.UseVisualStyleBackColor = true;
+            this.bReporteCompras.Click += new System.EventHandler(this.bTiposReporteClick);
             // 
             // bReporteVentas
             // 
@@ -285,12 +324,27 @@
             this.bReporteVentas.Text = "Reporte Ventas";
             this.bReporteVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.bReporteVentas.UseVisualStyleBackColor = true;
+            this.bReporteVentas.Click += new System.EventHandler(this.bTiposReporteClick);
+            // 
+            // bReporteGanancias
+            // 
+            this.bReporteGanancias.Image = global::UI.Properties.Resources.buy;
+            this.bReporteGanancias.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.bReporteGanancias.Location = new System.Drawing.Point(513, 2);
+            this.bReporteGanancias.Name = "bReporteGanancias";
+            this.bReporteGanancias.Size = new System.Drawing.Size(246, 111);
+            this.bReporteGanancias.TabIndex = 46;
+            this.bReporteGanancias.Text = "Reporte Ganancias";
+            this.bReporteGanancias.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.bReporteGanancias.UseVisualStyleBackColor = true;
+            this.bReporteGanancias.Click += new System.EventHandler(this.bTiposReporteClick);
             // 
             // FrmGeneradorReportes
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1070, 338);
+            this.ClientSize = new System.Drawing.Size(1070, 388);
+            this.Controls.Add(this.bReporteGanancias);
             this.Controls.Add(this.bReporteCompras);
             this.Controls.Add(this.bReporteVentas);
             this.Controls.Add(this.groupBox2);
@@ -304,6 +358,7 @@
             this.Name = "FrmGeneradorReportes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reportes";
+            this.Load += new System.EventHandler(this.FrmGeneradorReportes_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -331,5 +386,8 @@
         private Button bBuscar;
         private Button bReporteCompras;
         private Button bReporteVentas;
+        private Button bReporteMensualPasado;
+        private Button bReporteMensualActual;
+        private Button bReporteGanancias;
     }
 }

@@ -54,6 +54,8 @@ namespace DataLayer
         public static string URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
         public static string URL_DESCUENTOS = "http://" + API_URL + "descuentos";
         public static string URL_REPORTE_VENTAS = "http://" + API_URL + "reportes/ventas";
+        public static string URL_REPORTE_GANANCIAS = "http://" + API_URL + "reportes/ganancias";
+        public static string URL_REPORTE_COMPRAS = "http://" + API_URL + "reportes/compras";
 
 
         public static string ACTUAL_API_TOKEN = String.Empty;
@@ -111,7 +113,9 @@ namespace DataLayer
             URL_COMPRA_PROVEEDOR = "http://" + API_URL + "views/compra_proveedor";
             URL_DESCUENTOS = "http://" + API_URL + "descuentos";
             URL_REPORTE_VENTAS = "http://" + API_URL + "reportes/ventas";
-    }
+            URL_REPORTE_COMPRAS = "http://" + API_URL + "reportes/compras";
+            URL_REPORTE_VENTAS = "http://" + API_URL + "reportes/ganancias";
+        }
         
         #region Mensajes
         public const string MSJ_PASS_DEBIL = "La contraseña ingresada es muy débil, Intente:\n" +
